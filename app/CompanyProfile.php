@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Ideashub;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +13,6 @@ class CompanyProfile extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'c_id');
+        return $this->belongsTo('Ideashub\User', 'c_id');
     }
 }

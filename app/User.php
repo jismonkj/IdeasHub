@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Ideashub;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -29,6 +29,6 @@ class User extends Authenticatable
 
     public function companyProfile()
     {
-        return $this->hasOne('App\CompanyProfile', 'c_id');
+        return $this->hasOne('Ideashub\CompanyProfile', 'c_id');
     }
 }

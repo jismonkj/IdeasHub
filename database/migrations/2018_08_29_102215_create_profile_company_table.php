@@ -21,14 +21,20 @@ class CreateProfileCompanyTable extends Migration
             $table->json('industries');
             $table->string('twitter', 30);
             $table->string('location', 60);
-            $table->string('state', 45);
+            $table->string('state_id', 45);
             $table->string('contact', 16);
             $table->string('founded', 5);
+            $table->string('avatar', 5);
+            $table->string('bio');
             $table->timestamps();
 
             $table->foreign('c_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade');
+
+            $table->foreign('state_id')
+                ->references('id')->on('states');
+
         });
     }
 

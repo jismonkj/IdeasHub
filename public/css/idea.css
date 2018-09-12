@@ -1,0 +1,89 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Monoton|Montserrat');
+
+/* colors
+----------- */
+:root {
+    --main-bg-color: #0b0b58;
+    --main-font-color: #fff;
+    --main-font-family: 'Montserrat', sans-serif;
+    --secondary-font-family: 'Monoton', cursive;
+}
+
+/* general page style
+------------------------- */
+html,
+body {
+    font-family: var(--main-font-family);
+    font-weight: 200;
+    height: 100vh;
+    margin: 0;
+    line-height: 0.8;
+}
+
+/* helper classess */
+.full-height {
+    height: 100vh;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.position-ref {
+    position: relative;
+}
+
+.top-right {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+}
+
+.content {
+    text-align: center;
+}
+
+.title {
+    font-size: 84px;
+    font-family: var(--secondary-font-family);
+}
+
+.links>a {
+    color: #636b6f;
+    padding: 0 25px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.m-b-md {
+    margin-bottom: 30px;
+}
+
+/* nav bar */
+.navbar-laravel {
+    background-color: var(--main-bg-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    color: var(--main-font-color);
+}
+
+.navbar-brand {
+    padding-left: 5px;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    border-left: 3px solid var(--main-bg-color);
+    color: var(--main-font-color);
+    font-family: var(--main-font-family);
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus {
+    color: var(--main-font-color);
+    border-left-color: var(--main-font-color);
+    transition: border-left 1s;
+}

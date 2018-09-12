@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Ideashub\Http\Controllers;
 
-use App\CompanyProfile;
+use Ideashub\CompanyProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
