@@ -3,6 +3,8 @@
 namespace Ideashub\Http\Controllers;
 
 use Ideashub\CompanyProfile;
+use Ideashub\State;
+use Ideashub\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +17,14 @@ class CompanyProfileController extends Controller
      */
     public function index()
     {
-        return Auth::user()->id;
+        $profile = User::find(Auth::id())->companyProfile;
+        $states = State::all();
+        if ($profile == "") {
+            return view('profile')->with(['flag' => 'new', 'states' => $states]);
+        }
+        $state = State::find($profile['state_id']);
+        $profile['state'] = $state['state'];
+        return view('profile')->with(['profile' => $profile, 'flag' => 'view']);
     }
 
     /**
@@ -36,7 +45,13 @@ class CompanyProfileController extends Controller
      */
     public function store(Request $request)
     {
+        $imgPath = "";
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $image = $request->file('avatar');
+            $imgPath = $image->store('public/images/' . Auth::id());
+        }
         $profile = new CompanyProfile($request->all());
+        $profile->avatar = $imgPath;
         Auth::user()->companyProfile()->save($profile);
         return view('home');
     }
@@ -49,7 +64,12 @@ class CompanyProfileController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $profile = User::find($id)->companyProfile;
+        $state = State::find($profile['state_id']);
+        $profile['state'] = $state['state'];
+        $states = State::all();
+        return view('profile')->with(['profile' => $profile, 'flag' => 'edit', 'states' => $states]);
     }
 
     /**
@@ -72,7 +92,19 @@ class CompanyProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $imgPath = "";
+        $path = "";
+
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $image = $request->file('avatar');
+            $imgPath = $image->store('/images/' . Auth::id());
+            $data = $request->except(['_method', '_token']);
+            $data['avatar'] = $imgPath;
+        } else {
+            $data = $request->except(['avatar', '_method', '_token']);
+        }
+        Auth::user()->companyProfile()->update($data);
+        return view('home');
     }
 
     /**

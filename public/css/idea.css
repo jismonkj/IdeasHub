@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Monoton|Montserrat');
 
 /* colors
------------ */
+-------------------------------------------------- */
 :root {
     --main-bg-color: #0b0b58;
     --main-font-color: #fff;
@@ -11,7 +11,7 @@
 }
 
 /* general page style
-------------------------- */
+------------------------------------------------*/
 html,
 body {
     font-family: var(--main-font-family);
@@ -21,7 +21,20 @@ body {
     line-height: 0.8;
 }
 
-/* helper classess */
+.nav-link {
+    color: var(--main-font-color);
+}
+
+.nav-link:hover,
+.nav-link:active,
+.nav-link:visited {
+    color: var(--main-font-color);
+}
+
+/* general style-end */
+
+/* helper classess 
+-----------------------------------------------*/
 .full-height {
     height: 100vh;
 }
@@ -65,7 +78,45 @@ body {
     margin-bottom: 30px;
 }
 
-/* nav bar */
+/* helper classes-end */
+
+/* form elements 
+------------------------------------------------------------*/
+.btn.btn-primary {
+    background: var(--main-bg-color);
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-radius: 5px;
+}
+
+.btn.btn-primary:hover,
+.btn.btn-primary:focus,
+.btn.btn-primary:visited,
+.btn.btn-primary:active {
+    background: var(--main-bg-color) !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: 0 0 4px 0.2rem rgba(11, 22, 66, 0.24) !important;
+}
+
+.form-control:focus {
+    border-color: var(--main-bg-color);
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(19, 33, 89, 0.19);
+    box-shadow: 0 0 0 0.2rem rgba(19, 33, 89, 0.19);
+}
+
+.custom-select:focus {
+    border-color: var(--main-bg-color);
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(19, 33, 89, 0.19);
+    box-shadow: 0 0 0 0.2rem rgba(19, 33, 89, 0.19);
+}
+
+/* form elements-end */
+
+/* nav bar 
+------------------------------------------------------------*/
 .navbar-laravel {
     background-color: var(--main-bg-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -90,6 +141,7 @@ body {
     transition: border-left 1s;
 }
 
+/* nav-bar-end */
 
 /* profile 
 ------------------------------------------*/
@@ -102,6 +154,8 @@ i.profile-icon {
     font-size: 1.5rem;
     padding-right: 10px;
     padding-left: 30px;
+    width: 3.6rem;
+    display: inline-block;
 }
 
 p.profile-d-box {

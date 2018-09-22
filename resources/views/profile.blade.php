@@ -8,8 +8,13 @@
                 <div class="card-header">Profile</div>
                 <div class="card-body">
                     @if( $flag=="view" )
-                        @component('components.user.viewprofile', ['profile' => $profile ])
-                        @endcomponent
+                        @if (Auth::user()->u_type== 'company')
+                            @component('components.company.viewprofile', ['profile' => $profile ])
+                            @endcomponent
+                        @elseif(Auth::user()->u_type== 'user')
+                            @component('components.user.viewprofile', ['profile' => $profile ])
+                            @endcomponent
+                        @endif
                     @elseif($flag=="edit")
                         @if (Auth::user()->u_type== 'company')
                             @component('components.company.editprofile', ['profile'=> $profile, 'states' => $states ])

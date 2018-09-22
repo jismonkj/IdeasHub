@@ -35,7 +35,7 @@
                             <div class="col-md-6">
                             <!-- <div class="input-group mb-3"> -->
                                 <select class="custom-select" id="u_type" name="u_type">
-                                    <option value="user" selected>User</option>
+                                    <option value="user">User</option>
                                     <option value="company">Company</option>
                                 </select>
                                 <!-- <div class="input-group-append">

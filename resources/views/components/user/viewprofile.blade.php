@@ -5,7 +5,7 @@
         <img src="{{ asset('storage/'.$profile['avatar']) }} " alt="" class="img-responsive avatar mx-auto d-block">
     </div>
     <div class="col-md-6 text-center">
-        <button class="btn btn-primary btn-sm float-right" v-on:click="redirectEditProfile" v-bind:data-uid="id = '{{ Auth::id() }}'">
+        <button class="btn btn-primary btn-sm float-right" v-on:click="redirectEditProfile" v-bind:data-uid="id = '{{ Auth::id() }}'" v-bind:data-type="type = '{{ Auth::user()->u_type }}'">
             <i class="fas fa-edit"></i>
         </button>
         <h3 class="mx-auto mt-5">

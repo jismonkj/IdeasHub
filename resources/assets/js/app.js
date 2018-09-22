@@ -19,11 +19,15 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 const app = new Vue({
     el: '#app',
     data: {
-        id: ""
+        id: "",
+        type: ""
     },
     methods: {
         redirectEditProfile: function () {
-            window.location.href = "/user/profile/" + this.id;
+            if (this.type == "company")
+                window.location.href = "/company/profile/" + this.id;
+            else
+                window.location.href = "/user/profile/" + this.id;
         }
     }
 });

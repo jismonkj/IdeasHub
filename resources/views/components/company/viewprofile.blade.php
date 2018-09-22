@@ -1,38 +1,63 @@
-<form method="POST" action="/company/profile" aria-label="{{ __('Register') }}">
-    @csrf
 
-    @component('components.forms.input', ['label'=>'forminputs.uni_name', 'type'=>'text', 'id'=>'uni_name', 'required'=>'required', 'autofocus'=>''])
-    @endcomponent
 
-    @component('components.forms.input', ['label'=>'forminputs.cmp_type', 'type'=>'text', 'id'=>'comp_type', 'required'=>'required', 'autofocus'=>''])
-    @endcomponent
-
-    @component('components.forms.input', ['label'=>'forminputs.website', 'type'=>'text', 'id'=>'website', 'required'=>'required', 'autofocus'=>''])
-    @endcomponent
-
-    @component('components.forms.input', ['label'=>'forminputs.industry', 'type'=>'text', 'id'=>'industries', 'required'=>'required', 'autofocus'=>''])
-    @endcomponent
-
-    @component('components.forms.input', ['label'=>'forminputs.twitter', 'type'=>'text', 'id'=>'twitter', 'required'=>'required', 'autofocus'=>''])
-    @endcomponent
-
-    @component('components.forms.input', ['label'=>'forminputs.loc', 'type'=>'text', 'id'=>'location', 'required'=>'required', 'autofocus'=>''])
-    @endcomponent
-
-     @component('components.forms.input', ['label'=>'forminputs.state', 'type'=>'text', 'id'=>'state', 'required'=>'required', 'autofocus'=>''])
-    @endcomponent
-
-    @component('components.forms.input', ['label'=>'forminputs.contact', 'type'=>'text', 'id'=>'contact', 'required'=>'required', 'autofocus'=>''])
-    @endcomponent
-
-    @component('components.forms.input', ['label'=>'forminputs.founded', 'type'=>'text', 'id'=>'founded', 'required'=>'required', 'autofocus'=>''])
-    @endcomponent
-
-    <div class="form-group row mb-0">
-        <div class="col-md-6 offset-md-4">
-            <button type="submit" class="btn btn-primary">
-                {{ __('Update') }}
-            </button>
-        </div>
+<div class="row">
+    <div class="col-md-6">
+        <img src="{{ asset('storage/'.$profile['avatar']) }} " alt="" class="img-responsive avatar mx-auto d-block">
     </div>
-</form>
+    <div class="col-md-6 text-center">
+        <button class="btn btn-primary btn-sm float-right" v-on:click="redirectEditProfile" v-bind:data-uid="id = '{{ Auth::id() }}'" v-bind:data-type="type = '{{ Auth::user()->u_type }}'">
+            <i class="fas fa-edit"></i>
+        </button>
+        <h3 class="mx-auto mt-5">
+            {{ $profile['uni_name'] }}
+        </h3>
+        <p class="profile-d-box">{{ Auth::user()->email }}</p>
+        <p class="profile-d-box">{{ $profile['website'] }}</p>
+        <p class="profile-d-box">
+        <!-- <i class="fas fa-phone profile-icon"></i> -->
+            {{ $profile['contact'] }}
+        </p>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-auto">
+        <p class="profile-d-box">
+        <i class="fas fa-user-tie profile-icon"></i>
+            {{ $profile['comp_type'] }}
+        </p>
+    </div>
+    <div class="col-md-auto">
+        <p class="profile-d-box">
+        <i class="fas fa-birthday-cake profile-icon"></i>
+            {{ $profile['founded'] }}
+        </p>
+    </div>
+    <div class="col-md-auto">
+        <p class="profile-d-box">
+        <i class="fas fa-city profile-icon"></i>
+            {{ $profile['location'] }}
+        </p>
+    </div>
+    <div class="col-md-auto">
+        <p class="profile-d-box">
+        <i class="fas fa-thumbtack profile-icon"></i>
+            {{ $profile['state'] }}
+        </p>
+    </div>
+    <div class="col-md-auto">
+        <p class="profile-d-box">
+        <i class="fas fa-industry profile-icon"></i>
+            {{ $profile['industries'] }}
+        </p>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-auto">
+        <p class="profile-d-box">
+        <i class="fas fa-info profile-icon"></i>
+            {{ $profile['bio'] }}
+        </p>
+    </div>
+</div>

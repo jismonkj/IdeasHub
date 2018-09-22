@@ -5,6 +5,7 @@ namespace Ideashub\Http\Controllers\Auth;
 use Ideashub\Http\Controllers\Controller;
 use Ideashub\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -52,7 +53,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'u_type' => array('required', 'regex:/user|admin/i'),
+            'u_type' => array('required', 'regex:/user|company/i'),
         ]);
     }
 
@@ -70,5 +71,14 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'u_type' => $data['u_type'],
         ]);
+    }
+
+    public function redirectTo()
+    {
+        if (Auth::user()->u_type == "company") {
+            return 'company/profile';
+        } else {
+            return 'user/profile';
+        }
     }
 }

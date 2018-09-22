@@ -18,13 +18,13 @@
                         <h1>Admin</h1>
                     @elseif (Auth::user()->u_type== 'company')
                         <h1>Company</h1>
+                        <a href="/company/profile" class="btn">Profile</a>
                     @else
                         <h1>User</h1>
+                        <a href="/user/profile" class="btn">Profile</a>
                     @endif
 
                     You are logged in!
-
-                     <a href="/user/profile" class="btn">Profile</a>
                 </div>
             </div>
         </div>

@@ -25,7 +25,7 @@ class CreateProfileCompanyTable extends Migration
             $table->string('contact', 16);
             $table->string('founded', 5);
             $table->string('avatar', 5);
-            $table->string('bio');
+            $table->string('bio')->nullable();
             $table->timestamps();
 
             $table->foreign('c_id')

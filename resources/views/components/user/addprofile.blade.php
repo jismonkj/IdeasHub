@@ -59,10 +59,8 @@
                             </div>
                         </div>
 
-    <!-- @component('components.forms.input', ['label'=>'forminputs.avatar', 'type'=>'file', 'id'=>'avatar', 'required'=>'', 'autofocus'=>''])
-    @endcomponent -->
-
-    <input type="file" class="form-control" name="avatar">
+    @component('components.forms.input', ['label'=>'forminputs.avatar', 'type'=>'file', 'id'=>'avatar', 'required'=>'', 'autofocus'=>''])
+    @endcomponent
 
     <div class="form-group row mb-0">
         <div class="col-md-6 offset-md-4">

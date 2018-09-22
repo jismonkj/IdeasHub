@@ -13907,11 +13907,12 @@ Vue.component('example-component', __webpack_require__(39));
 var app = new Vue({
     el: '#app',
     data: {
-        id: ""
+        id: "",
+        type: ""
     },
     methods: {
         redirectEditProfile: function redirectEditProfile() {
-            window.location.href = "/user/profile/" + this.id;
+            if (this.type == "company") window.location.href = "/company/profile/" + this.id;else window.location.href = "/user/profile/" + this.id;
         }
     }
 });
