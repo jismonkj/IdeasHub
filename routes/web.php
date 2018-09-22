@@ -17,15 +17,16 @@ Route::view('/', 'welcome');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/profile', function () {
-    if (!Auth::check()) {
-        return redirect('/register')->with('message', 'Please sign up to continue!');
-    }
+// Route::get('/profile', function () {
+//     if (!Auth::check()) {
+//         return redirect('/register')->with('message', 'Please sign up to continue!');
+//     }
 
-    if (Auth::user()->u_type == "admin") {
-        return redirect('home');
-    }
-    return view('profile');
-});
+//     if (Auth::user()->u_type == "admin") {
+//         return redirect('home');
+//     }
+//     return view('profile');
+// });
+
 Route::resource('/company/profile', 'CompanyProfileController');
 Route::resource('/user/profile', 'UserProfileController');

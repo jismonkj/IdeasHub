@@ -70,6 +70,8 @@ body {
     background-color: var(--main-bg-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
     color: var(--main-font-color);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .navbar-brand {
@@ -87,3 +89,27 @@ body {
     border-left-color: var(--main-font-color);
     transition: border-left 1s;
 }
+
+
+/* profile 
+------------------------------------------*/
+.avatar {
+    /* border-radius: 15%; */
+    height: 200px !important;
+}
+
+i.profile-icon {
+    font-size: 1.5rem;
+    padding-right: 10px;
+    padding-left: 30px;
+}
+
+p.profile-d-box {
+    /* padding: 1.2rem; */
+    /* background: var(--main-bg-color); */
+    color: var(--main-bg-color);
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+/* profile--end */

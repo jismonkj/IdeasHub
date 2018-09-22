@@ -23,6 +23,8 @@
                     @endif
 
                     You are logged in!
+
+                     <a href="/user/profile" class="btn">Profile</a>
                 </div>
             </div>
         </div>

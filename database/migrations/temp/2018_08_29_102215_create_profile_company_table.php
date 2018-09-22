@@ -21,7 +21,7 @@ class CreateProfileCompanyTable extends Migration
             $table->json('industries');
             $table->string('twitter', 30);
             $table->string('location', 60);
-            $table->string('state_id', 45);
+            $table->string('state_id', 5);
             $table->string('contact', 16);
             $table->string('founded', 5);
             $table->string('avatar', 5);

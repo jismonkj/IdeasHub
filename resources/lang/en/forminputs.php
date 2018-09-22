@@ -17,4 +17,5 @@ return [
     'zipcode' => 'Pin Code',
     'profession' => 'Profession',
     'gender' => 'Gender',
+    'avatar' => 'Profile Picture',
 ];

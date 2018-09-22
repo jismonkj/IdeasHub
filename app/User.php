@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('Ideashub\CompanyProfile', 'c_id');
     }
+
+    public function userProfile()
+    {
+        return $this->hasOne('Ideashub\UserProfile', 'uid');
+    }
 }
