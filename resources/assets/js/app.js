@@ -20,7 +20,8 @@ const app = new Vue({
     el: '#app',
     data: {
         id: "",
-        type: ""
+        type: "",
+        url: ""
     },
     methods: {
         redirectEditProfile: function () {
@@ -28,6 +29,9 @@ const app = new Vue({
                 window.location.href = "/company/profile/" + this.id;
             else
                 window.location.href = "/user/profile/" + this.id;
+        },
+        getData: function () {
+            alert(this.url);
         }
     }
 });

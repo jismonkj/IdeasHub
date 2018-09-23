@@ -2,12 +2,12 @@
 
 <div class="row">
     <div class="col-md-6">
-        <img src="{{ asset('storage/'.$profile['avatar']) }} " alt="" class="img-responsive avatar mx-auto d-block">
+        <div class="card border-0">
+            <img src="{{ asset('storage/'.$profile['avatar']) }} " alt="" class="img-responsive avatar mx-auto d-block">
+        </div>
     </div>
     <div class="col-md-6 text-center">
-        <button class="btn btn-primary btn-sm float-right" v-on:click="redirectEditProfile" v-bind:data-uid="id = '{{ Auth::id() }}'" v-bind:data-type="type = '{{ Auth::user()->u_type }}'">
-            <i class="fas fa-edit"></i>
-        </button>
+       <div class="card border-0">
         <h3 class="mx-auto mt-5">
             {{ $profile['uni_name'] }}
         </h3>
@@ -17,6 +17,10 @@
         <!-- <i class="fas fa-phone profile-icon"></i> -->
             {{ $profile['contact'] }}
         </p>
+        <div class="float-right" v-on:click="redirectEditProfile" v-bind:data-uid="id = '{{ Auth::id() }}'" v-bind:data-type="type = '{{ Auth::user()->u_type }}'">
+            <i class="fas fa-edit show-pointer"></i>
+        </div>
+       </div>
     </div>
 </div>
 <hr>
@@ -43,6 +47,12 @@
         <p class="profile-d-box">
         <i class="fas fa-thumbtack profile-icon"></i>
             {{ $profile['state'] }}
+        </p>
+    </div>
+    <div class="col-md-auto">
+        <p class="profile-d-box">
+        <i class="fab fa-twitter profile-icon"></i>
+            {{ $profile['twitter'] }}
         </p>
     </div>
     <div class="col-md-auto">

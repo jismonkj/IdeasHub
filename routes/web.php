@@ -15,18 +15,11 @@ use Illuminate\Support\Facades\Auth;
 
 Route::view('/', 'welcome');
 Auth::routes();
+
+//main pages
 Route::get('/home', 'HomeController@index')->name('home');
-
-// Route::get('/profile', function () {
-//     if (!Auth::check()) {
-//         return redirect('/register')->with('message', 'Please sign up to continue!');
-//     }
-
-//     if (Auth::user()->u_type == "admin") {
-//         return redirect('home');
-//     }
-//     return view('profile');
-// });
-
+Route::get('/admin', 'AdminActionsController@getDashboard');
+// Route::get('/admin/profile/{id}', 'AdminActionsController@getProfile');
+//profiles
 Route::resource('/company/profile', 'CompanyProfileController');
 Route::resource('/user/profile', 'UserProfileController');

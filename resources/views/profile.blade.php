@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">Profile</div>
                 <div class="card-body">
@@ -23,7 +23,7 @@
                             @component('components.user.editprofile', ['profile'=> $profile, 'states' => $states ])
                             @endcomponent
                         @else
-                            redirect('/home');
+                            //
                         @endif
                     @else
                         @if (Auth::user()->u_type== 'company')
@@ -33,7 +33,7 @@
                             @component('components.user.addprofile', ['states'=> $states])
                             @endcomponent
                         @else
-                            redirect('/home');
+                            //
                         @endif
                     @endif
                 </div>
@@ -41,4 +41,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('sidebar')
+        @component('components.sidebar')
+        @endcomponent
 @endsection
