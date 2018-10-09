@@ -1,35 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    @if (Auth::user()->u_type=='admin')
-                        <h1>Admin</h1>
-                    @elseif (Auth::user()->u_type== 'company')
-                        <h1>Company</h1>
-                        <a href="/company/profile" class="btn">Profile</a>
-                    @else
-                        <h1>User</h1>
-                        <a href="/user/profile" class="btn">Profile</a>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
+@if (session('status'))
+    <div class="alert alert-success" role="alert">
+        {{ session('status') }}
     </div>
-</div>
+@endif
+@if (Auth::user()->u_type== 'company')
+    <h1>Company</h1>
+    <a href="/company/profile" class="btn">Profile</a>
+@elseif (Auth::user()->u_type== 'user')
+    @component('components/feeds/user')
+    @endcomponent
+@endif
 @endsection
 
 @section('sidebar')

@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'uni_name' => 'Universal Name',
+    'uni_name' => 'Name',
     'mail' => 'E-mail Address',
-    'cmp_type' => 'Type of the Company',
-    'website' => 'Website Address',
+    'cmp_type' => 'Company Type',
+    'website' => 'Website',
     'industry' => 'Industries',
     'twitter' => 'Twitter',
     'loc' => 'Location',
@@ -18,4 +18,7 @@ return [
     'profession' => 'Profession',
     'gender' => 'Gender',
     'avatar' => 'Profile Picture',
+    'cover' => 'Cover Picture',
+    'fname' => 'First Name',
+    'cover' => 'Last Name',
 ];

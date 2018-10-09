@@ -1,4 +1,4 @@
-<nav id="sidebar">
+<nav id="sidebar" class="active">
             <div class="sidebar-header text-center">
                 <i class="fas fa-user display-1"></i>
                 <h3>{{Auth::user()->name}}</h3>
@@ -19,13 +19,8 @@
                     <div class="col p-2 sidebar-box">
                         Profile
                     </div>
-                    <div class="col p-2 sidebar-box">
-                        <a class="" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                             <i class="fas fa-sign-out-alt"></i>
-                        </a>
-
+                    <div class="col p-2 sidebar-box" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                        <i class="fas fa-sign-out-alt"></i>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>

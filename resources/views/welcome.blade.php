@@ -21,8 +21,8 @@
         /* home page
         -----------------*/
         body.home {
-            background-color: var(--main-bg-color);
-            color: var(--main-font-color);
+            background-color: var(--main-bg);
+            color: var(--primary-color);
         }
     </style>
     </head>

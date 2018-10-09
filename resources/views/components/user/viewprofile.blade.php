@@ -9,16 +9,16 @@
     <div class="col-md-6 text-center">
         <div class="card border-0">
             <h3 class="mx-auto mt-5">
-                {{ $profile['fullname'] }}
+                {{ $profile['fname']." ".$profile['lname'] }}
             </h3>
             <p class="profile-d-box">{{ $profile['profession'] }}</p>
             <p class="profile-d-box">
             <!-- <i class="fas fa-phone profile-icon"></i> -->
                 {{ $profile['contact'] }}
             </p>
-            <div class="float-right" v-on:click="redirectEditProfile" v-bind:data-uid="id = '{{ Auth::id() }}'" v-bind:data-type="type = '{{ Auth::user()->u_type }}'">
+            <p id="profileEdit" class="float-right profile-d-box" v-on:click="redirectEditProfile" v-bind:data-uid="id = '{{ Auth::id() }}'" v-bind:data-type="type = '{{ Auth::user()->u_type }}'">
                 <i class="fas fa-edit"></i>
-            </div>
+            </p>
         </div>
     </div>
 </div>

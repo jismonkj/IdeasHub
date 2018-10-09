@@ -15,7 +15,8 @@ class CreateProfileUserTable extends Migration
     {
         Schema::create('profile_user', function (Blueprint $table) {
             $table->integer('uid')->unsigned()->primary();
-            $table->string('fullname', 60);
+            $table->string('fname', 60);
+            $table->string('lname', 60);
             $table->date('dob');
             $table->string('city', 50);
             $table->string('state_id', 5);

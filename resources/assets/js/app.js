@@ -17,11 +17,12 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 const app = new Vue({
-    el: '#app',
+    el: '#profileEdit',
     data: {
         id: "",
         type: "",
-        url: ""
+        url: "",
+        email: null
     },
     methods: {
         redirectEditProfile: function () {
@@ -32,6 +33,16 @@ const app = new Vue({
         },
         getData: function () {
             alert(this.url);
+        },
+    },
+    computed: {
+        checkEmail: function () {
+            console.log(this.email);
+            var pattern = /\@{1}.{1}/;
+            if (!pattern.test(this.email)) {
+                // alert('err');
+                console.log('invalid email');
+            }
         }
     }
 });
