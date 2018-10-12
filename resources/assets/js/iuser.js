@@ -1,15 +1,26 @@
-Vue.component('company-list-item', {
-    props: ['title'],
-    template: '<div class="card">' +
-        '<div class="p-2 s-bg p-color">' +
-        '<div class="card-header">{{ title }}</div>' +
-        '<div class="card-body">Short Info<button class="btn float-right btn-default">More</button>' +
-        '</div></div></div>'
-})
+Vue.component('company-list-item', require('./components/CompanyList.vue'));
 
 const user = new Vue({
     el: '#userHome',
     data: {
-        uid: ""
+        uid: "",
+        cList: null,
+        preFix: "background-image:/",
+        showOverLay: false,
+        content: '<h1>hello</h1>'
+    },
+    mounted: function () {
+        axios.post('/list/company')
+            .then(function (response) {
+                this.cList = response.data;
+            }.bind(this))
+            .catch(function (error) {
+                console.log(error);
+            });
+    },
+    methods: {
+        hideOverLay: function () {
+            this.showOverLay = false;
+        }
     }
 });

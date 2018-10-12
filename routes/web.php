@@ -23,3 +23,8 @@ Route::get('/admin', 'AdminActionsController@getDashboard');
 //profiles
 Route::resource('/company/profile', 'CompanyProfileController');
 Route::resource('/user/profile', 'UserProfileController');
+
+
+//ajax routes
+Route::post('/list/company', 'UserFeedController@list');
+Route::get('/view/company/{id}', 'UserFeedController@viewCProfile');

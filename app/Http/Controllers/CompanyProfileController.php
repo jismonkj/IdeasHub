@@ -15,6 +15,7 @@ class CompanyProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $profile = User::find(Auth::id())->companyProfile;

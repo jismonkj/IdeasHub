@@ -2,13 +2,13 @@
     @csrf
     <div class="row">
         <div class="col">
-            @component('components.forms.input', ['label'=>'forminputs.fname', 'type'=>'text', 'id'=>'fname', 'required'=>'required', 'autofocus'=>''])
+            @component('components.forms.input', ['label'=>'forminputs.fname', 'type'=>'text', 'id'=>'fname', 'required'=>'required', 'autofocus'=>'autofocus'])
             @endcomponent
             <div class="form-group row">
                 <label for="lname" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
 
                 <div class="col">
-                    <input id="lname" type="text" class="validate form-control{{ $errors->has('fname') ? ' is-invalid' : '' }}" name="lname" value="{{ old('lname') }}" required autofocus data-type="name">
+                    <input id="lname" type="text" class="validate form-control{{ $errors->has('fname') ? ' is-invalid' : '' }}" name="lname" value="{{ old('lname') }}" required data-type="name">
 
                     @if ($errors->has('lname'))
                         <span class="invalid-feedback" role="alert">

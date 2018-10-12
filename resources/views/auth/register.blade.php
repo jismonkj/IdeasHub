@@ -38,33 +38,6 @@
                         </div>
                         
                         <div class="form-group row">
-                            <label id="l_fname" for="fname" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="fname" type="text" class="validate form-control{{ $errors->has('fname') ? ' is-invalid' : '' }}" name="fname" value="{{ old('fname') }}" required autofocus data-type="name">
-
-                                @if ($errors->has('fname'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('fname') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group row" id="divLname">
-                            <label for="lname" class="col-md-4 col-form-label text-md-right">{{ __('Last Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="lname" type="text" class="optional name validate form-control{{ $errors->has('fname') ? ' is-invalid' : '' }}" name="lname" value=" " autofocus data-type="name">
-
-                                @if ($errors->has('lname'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('lname') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">

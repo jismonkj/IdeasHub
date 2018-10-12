@@ -64,10 +64,12 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/idea.js') }}" defer></script>
     <script src="{{ asset('js/validate.js') }}" defer></script>
-    @if (Auth::user()->u_type== 'company')
-    <script src="{{ asset('js/icompany.js') }}" defer></script>
-    @elseif (Auth::user()->u_type== 'user')
-    <script src="{{ asset('js/iuser.js') }}" defer></script>
-    @endif
+   @auth
+        @if (Auth::user()->u_type== 'company')
+        <script src="{{ asset('js/icompany.js') }}" defer></script>
+        @elseif (Auth::user()->u_type== 'user')
+        <script src="{{ asset('js/iuser.js') }}" defer></script>
+        @endif
+   @endauth
 </body>
 </html>

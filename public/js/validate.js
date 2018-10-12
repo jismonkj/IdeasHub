@@ -135,17 +135,3 @@ function userAlert($message) {
         .delay(4000)
         .fadeOut();
 }
-
-
-
-//custom funciton
-$("#u_type").on("change", function () {
-    $type = $(this).val();
-    if ($type == "company") {
-        $("#l_fname").html("Company Name");
-        $("#divLname").fadeOut();
-    } else {
-        $("#l_fname").html("First Name");
-        $("#divLname").fadeIn();
-    }
-});
