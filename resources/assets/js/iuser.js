@@ -1,3 +1,8 @@
+window.vueDropzone = require('vue2-dropzone');
+
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+
 Vue.component('company-list-item', require('./components/CompanyList.vue'));
 
 const user = new Vue({
@@ -5,9 +10,7 @@ const user = new Vue({
     data: {
         uid: "",
         cList: null,
-        preFix: "background-image:/",
-        showOverLay: false,
-        content: '<h1>hello</h1>'
+        preFix: "background-image:/"
     },
     mounted: function () {
         axios.post('/list/company')
@@ -18,9 +21,27 @@ const user = new Vue({
                 console.log(error);
             });
     },
-    methods: {
-        hideOverLay: function () {
-            this.showOverLay = false;
+    methods: {},
+    components: {
+        vueDropzone
+    }
+});
+
+const drop = new Vue({
+    el: '#vDropZone',
+    components: {
+        vueDropzone: vue2Dropzone
+    },
+    data: function () {
+        return {
+            dropzoneOptions: {
+                url: '/idea/upload',
+                thumbnailWidth: 150,
+                maxFilesize: 0.5,
+                headers: {
+                    "My-Awesome-Header": "header value"
+                }
+            }
         }
     }
 });

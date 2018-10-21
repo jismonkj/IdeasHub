@@ -51,7 +51,7 @@ function inputValidate($value, $type, $optional, $class) {
     var pattern;
     $telPattern = /^([0-9]{10})?$/;
     $textPattern = /[A-Za-z0-9]/;
-    $namePattern = /[A-Za-z]/;
+    $namePattern = /[A-Za-z ]/i;
     $pswdPattern = /[\@]{1}/;
     $emailPattern = /\@{1}.{1}/;
     // dd/mm/yyyy

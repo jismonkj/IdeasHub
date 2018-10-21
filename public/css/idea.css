@@ -19,7 +19,7 @@
 }
 
 .p-color {
-    color: var(--primary-color)
+    color: var(--primary-color);
 }
 
 html,
@@ -46,8 +46,9 @@ body {
     /* display: flex; */
     /* align-items: flex-start; */
     /* margin-top: 10vh; */
-    height: calc(100vh-50px);
+    height: calc(100vh - 50px);
     overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 main#content {
@@ -393,6 +394,20 @@ p.alert-data {
     width: 100%;
     height: 100%;
     background: #000A;
+}
+
+.company-profile-cover {
+    background-position: center;
+    background-size: contain;
+    background-repeat: repeat-x;
+}
+
+p.user-feed.profile-d-box {
+    font-size: 0.9rem;
+}
+
+i.user-feed.profile-icon {
+    font-size: 0.8rem;
 }
 
 /* user feed end */
