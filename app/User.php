@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('Ideashub\UserProfile', 'uid');
     }
+
+    public function ideas()
+    {
+        return $this->hasMany('Ideashub\Idea', 'uid');
+    }
 }

@@ -14,8 +14,13 @@
                     {!! $info !!}
                     </div>
                     @isset($more)
+                        @isset($data)
+                        @component($more, ['data'=> $data])
+                        @endcomponent
+                        @else
                         @component($more)
                         @endcomponent
+                        @endisset
                     @endisset
 
                     @isset($ret_url)
