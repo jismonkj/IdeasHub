@@ -35,3 +35,4 @@ Route::post('/list/idea', 'UserFeedController@listIdeas');
 Route::get('/view/company/{id}', 'UserFeedController@viewCProfile');
 Route::post('/idea/upload', 'UserFeedController@uploadIdeaFiles');
 Route::get('/idea/preview', 'UserFeedController@getIdeaPreview');
+//moving to debian stretch
