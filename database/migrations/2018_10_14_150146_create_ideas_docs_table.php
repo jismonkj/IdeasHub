@@ -17,6 +17,7 @@ class CreateIdeasDocsTable extends Migration
             $table->increments('id');
             $table->integer('iid');
             $table->string('doc_path', 200);
+            $table->timestamps();
         });
     }
 

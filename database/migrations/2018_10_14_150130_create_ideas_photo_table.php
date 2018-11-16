@@ -17,6 +17,7 @@ class CreateIdeasPhotoTable extends Migration
             $table->increments('id');
             $table->integer('iid');
             $table->string('photo_path', 200);
+            $table->timestamps();
         });
     }
 

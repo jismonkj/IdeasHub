@@ -3,7 +3,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="p-3 text-center">
-                    <h4>More Fishes</h4>
+                    <h4>More Companies</h4>
                 </div>
             </div>
             <!-- company list -->

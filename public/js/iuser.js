@@ -790,7 +790,8 @@ var user = new Vue({
         uid: "",
         cList: null,
         iList: null,
-        preFix: "background-image:/"
+        preFix: "background-image:/",
+        csrfToken: $('meta[name="csrf-token"]').attr('content')
     },
     mounted: function mounted() {
         axios.post('/list/company').then(function (response) {
@@ -813,7 +814,7 @@ var user = new Vue({
 });
 
 var drop = new Vue({
-    el: '#vDropZone',
+    el: '#info',
     components: {
         vueDropzone: __WEBPACK_IMPORTED_MODULE_0_vue2_dropzone___default.a
     },
@@ -834,6 +835,7 @@ var drop = new Vue({
     },
     methods: {
         vdropzoneSuccess: function vdropzoneSuccess(file, response) {
+            console.log(response);
             if (response) {
                 //
             }
@@ -985,6 +987,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1040,52 +1046,57 @@ var render = function() {
                   _vm._s(_vm.location) +
                   " | " +
                   _vm._s(_vm.bio) +
-                  "\n                    "
+                  "\n                "
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "float-right" }, [
+              _c(
+                "button",
+                {
+                  key: "sellId" + _vm.c_id,
+                  staticClass: "btn btn-sm btn-primary",
+                  attrs: { type: "button" },
+                  on: { click: _vm.sellIdea }
+                },
+                [_vm._v("Got Some Ideas?")]
               ),
-              _c("div", { staticClass: "float-right" }, [
-                _c(
-                  "button",
-                  {
-                    key: "sellId" + _vm.c_id,
-                    staticClass: "btn btn-sm btn-primary",
-                    attrs: { type: "button" },
-                    on: { click: _vm.sellIdea }
-                  },
-                  [_vm._v("Got Some Ideas?")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    key: "follow" + _vm.c_id,
-                    staticClass: "btn btn-sm btn-primary",
-                    attrs: { type: "button" }
-                  },
-                  [_vm._v("Follow")]
-                ),
-                _vm._v(" "),
-                !_vm.showoverlay
-                  ? _c(
-                      "button",
-                      {
-                        key: "moreBtn" + _vm.c_id,
-                        staticClass: "btn btn-sm btn-primary",
-                        attrs: { "data-id": _vm.c_id },
-                        on: { click: _vm.detCompanyView }
-                      },
-                      [_vm._v("More")]
-                    )
-                  : _c(
-                      "button",
-                      {
-                        key: "closeBtm" + _vm.c_id,
-                        staticClass: "btn btn-sm btn-primary",
-                        attrs: { type: "button" },
-                        on: { click: _vm.hideOverLay }
-                      },
-                      [_vm._v("Close")]
-                    )
-              ])
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  key: "follow" + _vm.c_id,
+                  staticClass: "btn btn-sm btn-primary",
+                  attrs: { type: "button" }
+                },
+                [_vm._v("Follow")]
+              ),
+              _vm._v(" "),
+              !_vm.showoverlay
+                ? _c(
+                    "button",
+                    {
+                      key: "moreBtn" + _vm.c_id,
+                      staticClass: "btn btn-sm btn-primary",
+                      attrs: { "data-id": _vm.c_id },
+                      on: { click: _vm.detCompanyView }
+                    },
+                    [_vm._v("More")]
+                  )
+                : _c(
+                    "button",
+                    {
+                      key: "closeBtm" + _vm.c_id,
+                      staticClass: "btn btn-sm btn-primary",
+                      attrs: { type: "button" },
+                      on: { click: _vm.hideOverLay }
+                    },
+                    [_vm._v("Close")]
+                  )
             ])
           ])
         ]),
@@ -1215,15 +1226,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {};
-  },
   props: ["id", "c_id", "company", "title", "summary", "cid"],
+  data: function data() {
+    return {
+      csrfToken: $('meta[name="csrf-token"]').attr('content')
+    };
+  },
   methods: {
     viewIdea: function viewIdea() {
-      alert();
+      window.location.href = "idea/view/" + this.id;
     }
   }
 });
@@ -1256,30 +1277,68 @@ var render = function() {
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "float-right" }, [
               _c(
-                "button",
+                "form",
                 {
-                  key: "vi" + _vm.id,
-                  staticClass: "btn btn-sm btn-primary",
-                  attrs: { type: "button" },
-                  on: { click: _vm.viewIdea }
+                  staticClass: "d-inline",
+                  attrs: { method: "post", action: "/idea/view" }
                 },
                 [
-                  _vm._v(
-                    "\n                            View\n                        "
+                  _c("input", {
+                    attrs: { name: "_token", hidden: "" },
+                    domProps: { value: _vm.csrfToken }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: { name: "id", hidden: "" },
+                    domProps: { value: _vm.id }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      key: "vi" + _vm.id,
+                      staticClass: "btn btn-sm btn-primary",
+                      attrs: { type: "submit" },
+                      on: { click: _vm.viewIdea }
+                    },
+                    [
+                      _vm._v(
+                        "\n                                View\n                            "
+                      )
+                    ]
                   )
                 ]
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "form",
                 {
-                  key: "ed" + _vm.c_id,
-                  staticClass: "btn btn-sm btn-primary",
-                  attrs: { type: "button" }
+                  staticClass: "d-inline",
+                  attrs: { method: "post", action: "/idea/edit" }
                 },
                 [
-                  _vm._v(
-                    "\n                            Edit\n                        "
+                  _c("input", {
+                    attrs: { name: "_token", hidden: "" },
+                    domProps: { value: _vm.csrfToken }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: { name: "id", hidden: "" },
+                    domProps: { value: _vm.id }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      key: "ed" + _vm.c_id,
+                      staticClass: "btn btn-sm btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                                Edit\n                            "
+                      )
+                    ]
                   )
                 ]
               )

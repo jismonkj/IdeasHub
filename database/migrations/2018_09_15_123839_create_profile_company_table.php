@@ -18,7 +18,7 @@ class CreateProfileCompanyTable extends Migration
             $table->string('uni_name', 100);
             $table->string('comp_type', 60);
             $table->string('website', 50);
-            $table->json('industries');
+            $table->string('industries');
             $table->string('twitter', 30);
             $table->string('location', 60);
             $table->string('state_id', 5);

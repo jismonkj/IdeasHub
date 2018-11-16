@@ -59,14 +59,14 @@ class UserFeedController extends Controller
             $type = $file->getMimeType();
             switch ($type) {
                 case 'image/png':
-                    $filename = $file->store('public/images/ideas/' . Auth::id());
+                    $filename = $file->store('images/ideas/' . Auth::id());
                     IdeaPhoto::create([
                         'iid' => $iid,
                         'photo_path' => $filename
                     ]);
                     break;
                 case 'application/pdf':
-                    $filename = $file->store('public/docs/ideas/' . Auth::id());
+                    $filename = $file->store('docs/ideas/' . Auth::id());
                     IdeaDoc::create([
                         'iid' => $iid,
                         'doc_path' => $filename
@@ -75,7 +75,7 @@ class UserFeedController extends Controller
             }
         // }
         }
-        return true;
+        return $type;
     }
 
     public function getIdeaPreview()
@@ -86,5 +86,32 @@ class UserFeedController extends Controller
         $docs = IdeaDoc::select('doc_path')->where('iid', $iid)->get();
 
         return view('info', ['info' => '<b>Look!</b> Here is the summary of your proposal', 'htmlclass' => 'alert-info', 'more' => 'partials.ideapreview', 'data' => ['photos' => $photos, 'docs' => $docs, 'idea' => $idea]]);
+    }
+
+    public function getIdeaView(Request $request){
+       
+        $iid = $request->id;
+        $idea = Idea::find($iid);
+        $photos = IdeaPhoto::select('photo_path')->where('iid', $iid)->get();
+        $docs = IdeaDoc::select('doc_path')->where('iid', $iid)->get();
+
+        return view('info', ['info' => '<b>Look!</b> Here is the summary of your proposal', 'htmlclass' => 'alert-info', 'more' => 'partials.ideapreview', 'data' => ['photos' => $photos, 'docs' => $docs, 'idea' => $idea]]);
+    }
+
+    public function getIdeaEditView(Request $request){
+        
+        $idea = Idea::find($request->id);
+        // return $idea;
+        return View('components.feeds.editidea', ['idea' => $idea]);
+    }
+
+    public function editIdea(Request $request){
+        
+        $idea = Idea::find($request->id);
+        $idea->title = $request->title;
+        $idea->summary = $request->summary;
+        $idea->content = $request->content;
+        $idea->save();
+        return view('info', ['info' => 'Here is your documents and photos!', 'htmlclass' => 'alert-info', 'more' => 'partials.moretoidea_']);
     }
 }

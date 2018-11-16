@@ -28,11 +28,13 @@ Route::get('/idea/sell/{id}', function ($id) {
     return View('components.feeds.sellidea', ['id' => $id]);
 });
 Route::post('/idea/sell', 'UserFeedController@sellIdea')->name('sell-idea');
+Route::get('/idea/preview', 'UserFeedController@getIdeaPreview');
+Route::post('/idea/view', 'UserFeedController@getIdeaView');
+Route::post('/idea/edit', 'UserFeedController@getIdeaEditView');
+Route::post('/idea/update', 'UserFeedController@editIdea')->name('edit-idea');
 
 /* ajax routes ---------------- */
 Route::post('/list/company', 'UserFeedController@listCompanies');
 Route::post('/list/idea', 'UserFeedController@listIdeas');
 Route::get('/view/company/{id}', 'UserFeedController@viewCProfile');
 Route::post('/idea/upload', 'UserFeedController@uploadIdeaFiles');
-Route::get('/idea/preview', 'UserFeedController@getIdeaPreview');
-//moving to debian stretch

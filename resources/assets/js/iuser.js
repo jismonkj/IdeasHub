@@ -12,7 +12,8 @@ const user = new Vue({
         uid: "",
         cList: null,
         iList: null,
-        preFix: "background-image:/"
+        preFix: "background-image:/",
+        csrfToken: $('meta[name="csrf-token"]').attr('content')
     },
     mounted: function () {
         axios.post('/list/company')
@@ -39,7 +40,7 @@ const user = new Vue({
 });
 
 const drop = new Vue({
-    el: '#vDropZone',
+    el: '#info',
     components: {
         vueDropzone: vue2Dropzone
     },
@@ -55,11 +56,12 @@ const drop = new Vue({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            }
+            },
         }
     },
     methods: {
         vdropzoneSuccess: function (file, response) {
+            console.log(response);
             if (response) {
                 //
             }

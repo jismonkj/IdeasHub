@@ -32,8 +32,8 @@
         <div class="row">
             @foreach($data['photos'] as $photo)
             <div class="col-md-6">
-                <a href="{{asset('storage/'.$photo['photo_path'])}}" target="_blank">
-                    <img src="{{asset('storage/'.$photo['photo_path'])}}" alt="" class="img-responsive idea-photo d-block">
+                <a href="{{asset('storage/public/'.$photo['photo_path'])}}" target="_blank">
+                    <img src="{{asset('storage/public/'.$photo['photo_path'])}}" alt="" class="img-responsive idea-photo d-block">
                 </a>
             </div>
             @endforeach
@@ -48,8 +48,8 @@
         <div class="row">
             @foreach($data['docs'] as $doc)
             <div class="col-md-6">
-                <a href="{{asset('storage/'.$doc['doc_path'])}}" target="_blank">
-                    <img src="{{asset('storage/'.$doc['doc_path'])}}" alt="" class="img-responsive idea-photo d-block">
+                <a href="{{asset('storage/public/'.$doc['doc_path'])}}" target="_blank">
+                    <img src="{{asset('storage/public/'.$doc['doc_path'])}}" alt="" class="img-responsive idea-photo d-block">
                 </a>
             </div>
             @endforeach
@@ -58,7 +58,11 @@
 </div>
 <div class="row">
     <div class="col text-right">
-        <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
+        <form method="post" action="/idea/edit" class="d-inline">
+        @csrf
+            <input name="id" value="{{ $data['idea']['id'] }}" hidden>
+            <button class="btn btn-primary" type="submit"><i class="fas fa-edit"></i></button>
+        </form>
         <button class="btn btn-primary" onclick="window.location.href='/home'"><i class="fas fa-home"></i></button>
     </div>
 </div>

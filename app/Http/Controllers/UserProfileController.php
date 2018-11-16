@@ -53,7 +53,7 @@ class UserProfileController extends Controller
         $imgPath = "";
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $image = $request->file('avatar');
-            $imgPath = $image->store('public/images/' . Auth::id());
+            $imgPath = $image->store('images/' . Auth::id());
         }
         $profile = new UserProfile($request->all());
         $profile->avatar = $imgPath;
@@ -101,7 +101,7 @@ class UserProfileController extends Controller
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $image = $request->file('avatar');
-            $imgPath = $image->store('/images/' . Auth::id());
+            $imgPath = $image->store('images/' . Auth::id());
             $data = $request->except(['_method', '_token']);
             $data['avatar'] = $imgPath;
         } else {

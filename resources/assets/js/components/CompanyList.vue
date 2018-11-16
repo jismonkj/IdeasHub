@@ -7,14 +7,18 @@
                   <div class="col-md-12">
                     <div class="my-auto">
                         {{ industries }} | {{ location }} | {{ bio }}
-                        <div class="float-right">
-                            <button type="button" class="btn btn-sm btn-primary" v-on:click="sellIdea" :key="'sellId' + c_id">Got Some Ideas?</button>
-                            <button type="button" class="btn btn-sm btn-primary" :key="'follow' + c_id">Follow</button>
-                            <button class="btn btn-sm btn-primary" v-if="!showoverlay" :data-id="c_id" :key="'moreBtn' + c_id" v-on:click="detCompanyView">More</button>
-                            <button type="button" class="btn btn-sm btn-primary" v-else :key="'closeBtm' + c_id"  v-on:click="hideOverLay">Close</button>
-                        </div>
                     </div>
                   </div>
+                </div>
+                <div class="row">
+                   <div class="col-md-12">
+                     <div class="float-right">
+                        <button type="button" class="btn btn-sm btn-primary" v-on:click="sellIdea" :key="'sellId' + c_id">Got Some Ideas?</button>
+                        <button type="button" class="btn btn-sm btn-primary" :key="'follow' + c_id">Follow</button>
+                        <button class="btn btn-sm btn-primary" v-if="!showoverlay" :data-id="c_id" :key="'moreBtn' + c_id" v-on:click="detCompanyView">More</button>
+                        <button type="button" class="btn btn-sm btn-primary" v-else :key="'closeBtm' + c_id"  v-on:click="hideOverLay">Close</button>
+                      </div>
+                    </div>
                 </div>
                 <div class="row">
                   <div class="col-md-12">
