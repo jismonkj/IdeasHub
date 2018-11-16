@@ -33,7 +33,15 @@ const user = new Vue({
                 // console.log(error);
             });
     },
-    methods: {},
+    methods: {
+        delIdea:function(index, id){
+            this.iList.splice(index, 1);
+            //del idea on db
+            axios.post('/del/idea', {'iid':id}).then(function(response){
+                // console.log(response.data);
+            });
+        } 
+    },
     components: {
         vueDropzone
     }

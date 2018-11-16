@@ -46,7 +46,7 @@
             @endauth
         </nav>
         <div class="wrapper">
-            <main id="content" class="container py-4">
+            <main id="content" class="container-fluid py-4">
                 @yield('content')
             </main>
             @yield('sidebar')

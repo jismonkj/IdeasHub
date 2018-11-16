@@ -32,9 +32,12 @@ Route::get('/idea/preview', 'UserFeedController@getIdeaPreview');
 Route::post('/idea/view', 'UserFeedController@getIdeaView');
 Route::post('/idea/edit', 'UserFeedController@getIdeaEditView');
 Route::post('/idea/update', 'UserFeedController@editIdea')->name('edit-idea');
+Route::post('/idea/del/photo', 'UserFeedController@delIdeaPhoto')->name('delIdeaPhoto');
+Route::post('/idea/del/doc', 'UserFeedController@delIdeaDoc')->name('delIdeaDoc');
 
 /* ajax routes ---------------- */
 Route::post('/list/company', 'UserFeedController@listCompanies');
 Route::post('/list/idea', 'UserFeedController@listIdeas');
 Route::get('/view/company/{id}', 'UserFeedController@viewCProfile');
 Route::post('/idea/upload', 'UserFeedController@uploadIdeaFiles');
+Route::post('/del/idea', 'UserFeedController@delAnIdea'); //removes an idea an related files

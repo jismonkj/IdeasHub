@@ -17,7 +17,7 @@
                 </div>
             </div>
             <!-- ideas sent -->
-            <idea-shared v-for="item in iList" v-bind="item" :key="item.id" v-bind:path="preFix">
+            <idea-shared v-for="(item, index) in iList" v-bind="item" :key="item.id" v-bind:path="preFix" v-on:remove="delIdea(index, item.id)">
             </idea-shared>
         </div>
     </div>

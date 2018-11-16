@@ -807,7 +807,15 @@ var user = new Vue({
             // console.log(error);
         });
     },
-    methods: {},
+    methods: {
+        delIdea: function delIdea(index, id) {
+            this.iList.splice(index, 1);
+            //del idea on db
+            axios.post('/del/idea', { 'iid': id }).then(function (response) {
+                // console.log(response.data);
+            });
+        }
+    },
     components: {
         vueDropzone: vueDropzone
     }
@@ -1234,6 +1242,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id", "c_id", "company", "title", "summary", "cid"],
@@ -1257,97 +1268,123 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
-    _c("div", { staticClass: "p-2" }, [
-      _c("div", { staticClass: "card-header s-bg p-color" }, [
-        _vm._v(_vm._s(_vm.title) + " "),
-        _c("span", { staticClass: "float-right" }, [
-          _vm._v(_vm._s(_vm.company))
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("h5", [_vm._v("Summary")]),
-            _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.summary))])
-          ]),
+  return _c(
+    "transition",
+    { attrs: { "leave-active-class": "animated fadeOut faster" } },
+    [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "p-2" }, [
+          _c(
+            "div",
+            { staticClass: "card-header s-bg p-color idea-paragraph" },
+            [
+              _vm._v(_vm._s(_vm.title) + " "),
+              _c("span", { staticClass: "float-right" }, [
+                _vm._v(_vm._s(_vm.company))
+              ])
+            ]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "float-right" }, [
-              _c(
-                "form",
-                {
-                  staticClass: "d-inline",
-                  attrs: { method: "post", action: "/idea/view" }
-                },
-                [
-                  _c("input", {
-                    attrs: { name: "_token", hidden: "" },
-                    domProps: { value: _vm.csrfToken }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    attrs: { name: "id", hidden: "" },
-                    domProps: { value: _vm.id }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      key: "vi" + _vm.id,
-                      staticClass: "btn btn-sm btn-primary",
-                      attrs: { type: "submit" },
-                      on: { click: _vm.viewIdea }
-                    },
-                    [
-                      _vm._v(
-                        "\n                                View\n                            "
-                      )
-                    ]
-                  )
-                ]
-              ),
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12" }, [
+                _c("h5", [_vm._v("Summary")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "idea-paragraph" }, [
+                  _vm._v(_vm._s(_vm.summary))
+                ])
+              ]),
               _vm._v(" "),
-              _c(
-                "form",
-                {
-                  staticClass: "d-inline",
-                  attrs: { method: "post", action: "/idea/edit" }
-                },
-                [
-                  _c("input", {
-                    attrs: { name: "_token", hidden: "" },
-                    domProps: { value: _vm.csrfToken }
-                  }),
+              _c("div", { staticClass: "col-md-12" }, [
+                _c("div", { staticClass: "float-right" }, [
+                  _c(
+                    "form",
+                    {
+                      staticClass: "d-inline",
+                      attrs: { method: "post", action: "/idea/view" }
+                    },
+                    [
+                      _c("input", {
+                        attrs: { name: "_token", hidden: "" },
+                        domProps: { value: _vm.csrfToken }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        attrs: { name: "id", hidden: "" },
+                        domProps: { value: _vm.id }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          key: "vi" + _vm.id,
+                          staticClass: "btn btn-sm btn-primary",
+                          attrs: { type: "submit" },
+                          on: { click: _vm.viewIdea }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                    View\n                                "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
-                  _c("input", {
-                    attrs: { name: "id", hidden: "" },
-                    domProps: { value: _vm.id }
-                  }),
+                  _c(
+                    "form",
+                    {
+                      staticClass: "d-inline",
+                      attrs: { method: "post", action: "/idea/edit" }
+                    },
+                    [
+                      _c("input", {
+                        attrs: { name: "_token", hidden: "" },
+                        domProps: { value: _vm.csrfToken }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        attrs: { name: "id", hidden: "" },
+                        domProps: { value: _vm.id }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          key: "ed" + _vm.c_id,
+                          staticClass: "btn btn-sm btn-primary",
+                          attrs: { type: "submit" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                    Edit\n                                "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "button",
                     {
-                      key: "ed" + _vm.c_id,
-                      staticClass: "btn btn-sm btn-primary",
-                      attrs: { type: "submit" }
+                      key: "del" + _vm.c_id,
+                      staticClass: "btn btn-sm btn-danger",
+                      on: {
+                        click: function($event) {
+                          _vm.$emit("remove")
+                        }
+                      }
                     },
-                    [
-                      _vm._v(
-                        "\n                                Edit\n                            "
-                      )
-                    ]
+                    [_vm._v("Remove")]
                   )
-                ]
-              )
+                ])
+              ])
             ])
           ])
         ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -24,10 +24,15 @@
             background-color: var(--main-bg);
             color: var(--primary-color);
         }
+        /* ---- reset ---- */ body{ margin:0; font:normal 75% Arial, Helvetica, sans-serif; } canvas{ display: block; vertical-align: bottom; } /* ---- particles.js container ---- */ #particles-js{ position:absolute; width: 100%; height: 100%; background-color: #0b0b58; background-image: url(""); background-repeat: no-repeat; background-size: cover; background-position: 50% 50%; }
+        .content{
+            z-index: 777;
+        }
     </style>
     </head>
     <body class="home">
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref full-height" id="welcome">
+        <!-- particles.js container --> <div id="particles-js"></div>
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -49,5 +54,7 @@
                 </div>
             </div>
         </div>
+        <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> 
+          <script src="{{ asset('js/welcome.js') }}" defer></script>
     </body>
 </html>

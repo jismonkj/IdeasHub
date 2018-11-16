@@ -11,7 +11,7 @@
         <div class="col-md-3">
             <small>Summary:</small>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 idea-paragraph">
             {{ $data['idea']['summary'] }}
         </div>
     </div>
@@ -19,43 +19,58 @@
         <div class="col-md-3">
             <small>Content:</small>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 idea-paragraph">
             {{ $data['idea']['content'] }}
         </div>
     </div>
 </div>
-<div class="card border-0">
-    <div class="card-header">
-        Photos Added
-    </div>
-    <div class="card-body">
-        <div class="row">
-            @foreach($data['photos'] as $photo)
-            <div class="col-md-6">
-                <a href="{{asset('storage/public/'.$photo['photo_path'])}}" target="_blank">
-                    <img src="{{asset('storage/public/'.$photo['photo_path'])}}" alt="" class="img-responsive idea-photo d-block">
-                </a>
+<div class="accordion" id="accordionExample">
+    @isset($data['photos'])  
+        <div class="card">
+            <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Photos
+                </button>
+            </h5>
             </div>
-            @endforeach
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body row">
+            
+                @foreach($data['photos'] as $photo)
+                <div class="col-md-6">
+                    <a href="{{asset('storage/'.$photo['photo_path'])}}" target="_blank">
+                        <img src="{{asset('storage/'.$photo['photo_path'])}}" alt="" class="img-responsive idea-photo">
+                    </a>
+                </div>
+                @endforeach
+            </div>
         </div>
     </div>
-</div>
-<div class="card border-0">
-    <div class="card-header">
-        Docs Added
-    </div>
-    <div class="card-body">
-        <div class="row">
-            @foreach($data['docs'] as $doc)
-            <div class="col-md-6">
-                <a href="{{asset('storage/public/'.$doc['doc_path'])}}" target="_blank">
-                    <img src="{{asset('storage/public/'.$doc['doc_path'])}}" alt="" class="img-responsive idea-photo d-block">
-                </a>
+    @endisset
+    @isset($data['docs'])  
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Docs
+                </button>
+            </h5>
             </div>
-            @endforeach
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body row">
+                @foreach($data['docs'] as $doc)
+                <div class="col-md-6">
+                    <a href="{{asset('storage/public/'.$doc['doc_path'])}}" target="_blank">
+                        <img src="{{asset('storage/public/'.$doc['doc_path'])}}" alt="" class="img-responsive idea-photo d-block">
+                    </a>
+                </div>
+                @endforeach
+            </div>
+            </div>
         </div>
+    @endisset
     </div>
-</div>
 <div class="row">
     <div class="col text-right">
         <form method="post" action="/idea/edit" class="d-inline">

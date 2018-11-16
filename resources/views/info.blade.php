@@ -43,3 +43,8 @@
     </div>
 
 @endsection
+
+@section('sidebar')
+        @component('components.sidebar')
+        @endcomponent
+@endsection

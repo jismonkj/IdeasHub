@@ -73,9 +73,9 @@ class UserFeedController extends Controller
                     ]);
                     break;
             }
+            return $filename;
         // }
         }
-        return $type;
     }
 
     public function getIdeaPreview()
@@ -107,11 +107,48 @@ class UserFeedController extends Controller
 
     public function editIdea(Request $request){
         
-        $idea = Idea::find($request->id);
+        //idea id
+        $iid = $request->id;
+        session(['iid' => $iid]);
+        $data = [];
+
+        $photos = IdeaPhoto::where('iid', $iid)->get();;
+        $docs = IdeaDoc::where('iid', $iid)->get();;
+        $data['docs'] = (sizeof($docs)==0) ? null: $docs;
+        $data['photos'] = (sizeof($photos)==0) ? null : $photos;
+
+        $idea = Idea::find($iid);
         $idea->title = $request->title;
         $idea->summary = $request->summary;
         $idea->content = $request->content;
         $idea->save();
-        return view('info', ['info' => 'Here is your documents and photos!', 'htmlclass' => 'alert-info', 'more' => 'partials.moretoidea_']);
+
+        return view('info', ['info' => 'Here is your documents and photos!', 'data'=> $data, 'htmlclass' => 'alert-info', 'more' => 'partials.moretoidea_']);
+    }
+
+    public function delIdeaPhoto(Request $request)
+    {
+
+        $iid = session('iid');
+        $data = [];
+        //delete photo from storage
+
+        //delete the photo from table
+        IdeaPhoto::destroy($request->delId);
+
+        $photos = IdeaPhoto::where('iid', $iid)->get();;
+        $docs = IdeaDoc::where('iid', $iid)->get();;
+        $data['docs'] = (sizeof($docs)==0) ? null: $docs;
+        $data['photos'] = (sizeof($photos)==0) ? null : $photos;
+
+        return view('info', ['info' => 'Photo is removed!', 'data'=> $data, 'htmlclass' => 'alert-info', 'more' => 'partials.moretoidea_']);
+    }
+
+    public function delAnIdea(Request $request)
+    {
+        //remove idea
+        Idea::destroy($request->iid);
+
+        return $request->all();
     }
 }

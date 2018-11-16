@@ -26,7 +26,8 @@
                                 <div class="form-group">
                                     <!-- <label for="lname" class="text-md-right">{{ __('Last Name') }}</label> -->
                                     <textarea id="summary" type="text" class="validate form-control{{ $errors->has('summary') ? ' is-invalid' : '' }}" name="summary" value="{{ $idea['summary'] }}" required data-type="name" placeholder="Brief Your Idea Here!
-Make an Impression. This is the only part initially visible to companies." rows="4"></textarea>
+Make an Impression. This is the only part initially visible to companies." rows="4">{{ $idea['summary'] }}
+                                    </textarea>
                                     @if ($errors->has('summary'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('summary') }}</strong>
@@ -35,7 +36,8 @@ Make an Impression. This is the only part initially visible to companies." rows=
                                 </div>
                                 <div class="form-group">
                                     <!-- <label for="lname" class="text-md-right">{{ __('Last Name') }}</label> -->
-                                    <textarea id="content" type="text" class="validate form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content" value="{{ $idea['content'] }}" required data-type="name" placeholder="Now... detail your idea." rows="6"></textarea>
+                                    <textarea id="content" type="text" class="validate form-control{{ $errors->has('content') ? ' is-invalid' : '' }}" name="content" value="{{ $idea['content'] }}" required data-type="name" placeholder="Now... detail your idea." rows="6">{{ $idea['summary'] }}
+                                    </textarea>
                                     @if ($errors->has('content'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('content') }}</strong>

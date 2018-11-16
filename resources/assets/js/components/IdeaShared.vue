@@ -1,12 +1,13 @@
 <template>
+<transition leave-active-class="animated fadeOut faster">
     <div class="card">
         <div class="p-2">
-            <div class="card-header s-bg p-color">{{ title }} <span class="float-right">{{ company }}</span></div>
+            <div class="card-header s-bg p-color idea-paragraph">{{ title }} <span class="float-right">{{ company }}</span></div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
                         <h5>Summary</h5>
-                        <p>{{ summary }}</p>
+                        <p class="idea-paragraph">{{ summary }}</p>
                     </div>
                     <div class="col-md-12">
                         <div class="float-right">
@@ -24,12 +25,14 @@
                                     Edit
                                 </button>
                             </form>
+                            <button class="btn btn-sm btn-danger" :key="'del' + c_id" v-on:click="$emit('remove')">Remove</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</transition>
 </template>
 <script>
 export default {
