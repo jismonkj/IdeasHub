@@ -46,3 +46,10 @@ Route::post('/list/idea', 'UserFeedController@listIdeas');
 Route::get('/view/company/{id}', 'UserFeedController@viewCProfile');
 Route::post('/idea/upload', 'UserFeedController@uploadIdeaFiles');
 Route::post('/del/idea', 'UserFeedController@delAnIdea'); //removes an idea an related files
+
+/* company-feed
+___________________________________________________________________________*/
+Route::post('company/view/user', 'CompanyFeedController@showUser')->name('showUser');
+
+/* ajax routes ---------------- */
+Route::post('company/list/ideas', 'CompanyFeedController@listIdeas');

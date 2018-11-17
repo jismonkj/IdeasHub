@@ -3,7 +3,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="p-3 text-center">
-                    <h4>Your Ideas</h4>
+                    <h4>Ideas For Review </h4>
                 </div>
             </div>
             <!-- ideas sent -->
@@ -13,7 +13,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="p-3 text-center">
-                    <h4>Your Ideas</h4>
+                    <h4>Interested</h4>
                 </div>
             </div>
             <!-- ideas sent -->
