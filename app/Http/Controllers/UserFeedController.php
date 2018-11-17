@@ -43,7 +43,7 @@ class UserFeedController extends Controller
     {
         $idea = new Idea($request->all());
         $idea->uid = Auth::user()->id;
-        $idea->save();
+        $idea->save();  
         session(['iid' => $idea->id]);
 
         return view('info', ['info' => '<b>Well done!</b> You have sent the idea to the company', 'htmlclass' => 'alert-success', 'more' => 'partials.moretoidea']);
@@ -85,7 +85,10 @@ class UserFeedController extends Controller
         $photos = IdeaPhoto::select('photo_path')->where('iid', $iid)->get();
         $docs = IdeaDoc::select('doc_path')->where('iid', $iid)->get();
 
-        return view('info', ['info' => '<b>Look!</b> Here is the summary of your proposal', 'htmlclass' => 'alert-info', 'more' => 'partials.ideapreview', 'data' => ['photos' => $photos, 'docs' => $docs, 'idea' => $idea]]);
+
+        $data = CompanyProfile::find(['c_id'=> $idea->c_id]);
+        // return $idea;
+        return view('info', ['info' => '<b>Look!</b> Here is the summary of your proposal', 'htmlclass' => 'alert-info', 'more' => 'partials.ideapreview', 'data' => ['photos' => $photos, 'docs' => $docs, 'idea' => $idea], 'title'=>$data[0]['uni_name']]);
     }
 
     public function getIdeaView(Request $request){
@@ -94,15 +97,18 @@ class UserFeedController extends Controller
         $idea = Idea::find($iid);
         $photos = IdeaPhoto::select('photo_path')->where('iid', $iid)->get();
         $docs = IdeaDoc::select('doc_path')->where('iid', $iid)->get();
+        
+        $data = CompanyProfile::find(['c_id'=> $idea->c_id]);
 
-        return view('info', ['info' => '<b>Look!</b> Here is the summary of your proposal', 'htmlclass' => 'alert-info', 'more' => 'partials.ideapreview', 'data' => ['photos' => $photos, 'docs' => $docs, 'idea' => $idea]]);
+        return view('info', ['info' => '<b>Look!</b> Here is the summary of your proposal', 'htmlclass' => 'alert-info', 'more' => 'partials.ideapreview', 'data' => ['photos' => $photos, 'docs' => $docs, 'idea' => $idea], 'title'=>$data[0]['uni_name']]);
     }
 
     public function getIdeaEditView(Request $request){
-        
+
         $idea = Idea::find($request->id);
+        $data = CompanyProfile::find(['c_id'=> $idea->c_id]);
         // return $idea;
-        return View('components.feeds.editidea', ['idea' => $idea]);
+        return View('components.feeds.editidea', ['idea' => $idea, 'cname'=>$data[0]['uni_name']]);
     }
 
     public function editIdea(Request $request){
@@ -123,7 +129,9 @@ class UserFeedController extends Controller
         $idea->content = $request->content;
         $idea->save();
 
-        return view('info', ['info' => 'Here is your documents and photos!', 'data'=> $data, 'htmlclass' => 'alert-info', 'more' => 'partials.moretoidea_']);
+        $data = CompanyProfile::find(['c_id'=> $idea->c_id]);
+
+        return view('info', ['info' => 'Here is your documents and photos!', 'data'=> $data, 'htmlclass' => 'alert-info', 'more' => 'partials.moretoidea_', 'title'=>$data[0]['uni_name']]);
     }
 
     public function delIdeaPhoto(Request $request)

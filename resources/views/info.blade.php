@@ -6,8 +6,10 @@
     <div class="row justify-content-center" id="info">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">
-                    
+                <div class="card-header bg-success text-white">
+                    @isset($title)
+                    {{ $title }}
+                    @endisset
                 </div>
                 <div class="card-body">  
                     <div class="alert {{ $htmlclass }}">

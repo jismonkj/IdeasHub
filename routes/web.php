@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use Ideashub\CompanyProfile;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,18 +15,22 @@ use Illuminate\Support\Facades\Auth;
 Route::view('/', 'welcome');
 Auth::routes();
 
-/* main pages ---------------- */
+/* main pages 
+_______________________________________________________________ */
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/admin', 'AdminActionsController@getDashboard');
 // Route::get('/admin/profile/{id}', 'AdminActionsController@getProfile');
 
-/* profiles -------------------- */
+/* profiles 
+___________________________________________________________________ */
 Route::resource('/company/profile', 'CompanyProfileController');
 Route::resource('/user/profile', 'UserProfileController');
 
-/* user-feed ------------------ */
+/* user-feed 
+___________________________________________________________________________ */
 Route::get('/idea/sell/{id}', function ($id) {
-    return View('components.feeds.sellidea', ['id' => $id]);
+    $data = CompanyProfile::find(['c_id'=> $id]);
+    return View('components.feeds.sellidea', ['id' => $id, 'cname' => $data[0]['uni_name']]);
 });
 Route::post('/idea/sell', 'UserFeedController@sellIdea')->name('sell-idea');
 Route::get('/idea/preview', 'UserFeedController@getIdeaPreview');

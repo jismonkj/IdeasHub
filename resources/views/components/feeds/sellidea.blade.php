@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Profile</div>
+                <div class="card-header bg-success text-white">
+                    {{ $cname }}
+                </div>
                 <div class="card-body">
                     <form id="regForm" method="POST" action="{{ route('sell-idea') }}" aria-label="{{ __('Got an Idea?') }}">
                         @csrf

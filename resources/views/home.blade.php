@@ -8,8 +8,8 @@
     </div>
 @endif
 @if (Auth::user()->u_type== 'company')
-    <h1>Company</h1>
-    <a href="/company/profile" class="btn">Profile</a>
+    @component('components/feeds/company')
+    @endcomponent
 @elseif (Auth::user()->u_type== 'user')
     @component('components/feeds/user')
     @endcomponent

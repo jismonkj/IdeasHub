@@ -51,7 +51,7 @@
 
                 <div class="links">
                     Where Customers Make Their Products
-                </div>
+                </div>                                                                                                            
             </div>
         </div>
         <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> 
