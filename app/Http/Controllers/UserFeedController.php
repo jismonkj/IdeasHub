@@ -21,7 +21,7 @@ class UserFeedController extends Controller
 
     public function listIdeas()
     {
-        // $ideas = Idea::select('id', 'c_id', 'title', 'summary')->where('uid', Auth::id())->get();
+        // $ideas = Idea::all()->where('uid', Auth::id())->groupBy('status');
         $ideas = User::find(Auth::id())->ideas;
         return $ideas;
         // return 'some';
@@ -158,5 +158,23 @@ class UserFeedController extends Controller
         Idea::destroy($request->iid);
 
         return $request->all();
+    }
+
+    //allow company access on idea
+    public function allowCompanyOnIdea(Request $request)
+    {      
+        $idea = Idea::find($request->id);
+        $idea->status = "authorised";
+        // $idea->save();
+
+        //company name
+        $company = CompanyProfile::find($idea->c_id);
+        // return $idea;
+        return view('info', ['info' => '<b>Look!</b> Here\'s your turn to set a price for your idea!    Set Price For Your Proposal!', 'htmlclass' => 'alert-success', 'more' => 'partials.ideasetprice', 'data' => ['idea' => $idea], 'title'=>$company->uni_name]);
+    }
+
+    public function setPriceOnIdea(Request $request)
+    {
+        
     }
 }

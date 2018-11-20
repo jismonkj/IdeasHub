@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('Ideashub\Idea', 'uid');
     }
+
+    public function wallet()
+    {
+        return $this->hasOne('Ideashub\Wallet', 'uid');
+    }
 }

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="card border-0">
-            <img src="{{ asset('storage/public/'.$profile['avatar']) }} " alt="" class="img-responsive avatar mx-auto d-block">
+            <img src="{{ file_exists(asset('storage/'.$profile['avatar']))? asset('storage/public/'.$profile['avatar']) : asset('storage/images/cover.jpg')}} " alt="" class="img-responsive avatar mx-auto d-block">
         </div>
     </div>
     <div class="col-md-6 text-center">

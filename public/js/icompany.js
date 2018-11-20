@@ -187,36 +187,83 @@ module.exports = __webpack_require__(59);
 /***/ (function(module, exports, __webpack_require__) {
 
 
-Vue.component('idea-shared', __webpack_require__(77));
+Vue.component('idea-shared', __webpack_require__(60));
+Vue.component('modal-pay', __webpack_require__(63));
 var company = new Vue({
     el: '#companyHome',
     data: {
         uid: "",
         iList: null,
+        iReviewList: [],
+        iBoughtList: [],
         preFix: "background-image:/",
-        csrfToken: $('meta[name="csrf-token"]').attr('content')
+        csrfToken: $('meta[name="csrf-token"]').attr('content'),
+        showModal: false,
+        payAmount: '...',
+        walletBalance: '..',
+        user_id: '',
+        iid: '',
+        iindex: ''
     },
     mounted: function mounted() {
-        axios.post('company/list/ideas').then(function (response) {
+        //ideas for review
+        axios.post('company/list/ideas/r').then(function (response) {
+            this.iReviewList = response.data;
+            // console.log(response.data);
+        }.bind(this)).catch(function (error) {
+            // console.log(error);
+        });
+        //paid ideas
+        axios.post('company/list/ideas/p').then(function (response) {
+            this.iBoughtList = response.data;
+            // console.log(response.data);
+        }.bind(this)).catch(function (error) {
+            // console.log(error);
+        });
+        //interested ideas
+        axios.post('company/list/ideas/i').then(function (response) {
             this.iList = response.data;
             // console.log(response.data);
         }.bind(this)).catch(function (error) {
             // console.log(error);
         });
+    },
+    methods: {
+        showInterestOnIdea: function showInterestOnIdea(index, id) {
+            //update idea status
+            var status = "interested";
+            this.changeIdeaStatus(id, status);
+            this.iReviewList[index]['status'] = 'interested';
+            this.iList.push(this.iReviewList[index]);
+            this.iReviewList.splice(index, 1);
+        },
+        delInteresteOnIdea: function delInteresteOnIdea(index, id) {
+            //update idea status
+            var status = "notinterested";
+            this.changeIdeaStatus(id, status);
+            this.iList.splice(index, 1);
+        },
+        changeIdeaStatus: function changeIdeaStatus(id, status) {
+            axios.post('company/change/idea/s', { 'status': status, 'id': id }).then(function (response) {
+                //success
+            }).catch(function (error) {
+                // console.log(error);
+            });
+        }
     }
 });
 
 /***/ }),
 
-/***/ 77:
+/***/ 60:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(78)
+var __vue_script__ = __webpack_require__(61)
 /* template */
-var __vue_template__ = __webpack_require__(79)
+var __vue_template__ = __webpack_require__(62)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -256,7 +303,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 78:
+/***/ 61:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -295,28 +342,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["id", "c_id", "company", "title", "summary", "uid"],
-  data: function data() {
-    return {
-      csrfToken: $('meta[name="csrf-token"]').attr('content')
-    };
-  },
-  methods: {
-    showInterest: function showInterest() {
-      //change idea status on db
-
+    props: ["index", "id", "c_id", "company", "title", "summary", "uid", "price", "status"],
+    data: function data() {
+        return {
+            csrfToken: $('meta[name="csrf-token"]').attr('content')
+        };
     },
-    userCheck: function userCheck() {
-      alert(this.uid);
+    methods: {
+        startWalletPay: function startWalletPay() {},
+        showModal: function showModal() {
+            //depreciated method
+            this.$parent.showModal = true;
+            this.$parent.payAmount = this.price;
+            this.$parent.user_id = this.uid;
+            this.$parent.iid = this.id;
+            this.$parent.iindex = this.index;
+
+            //wallet balance
+            axios.get('wallet/get/balance').then(function (response) {
+                this.$parent.walletBalance = response.data;
+                // console.log(response.data);
+            }.bind(this)).catch(function (error) {
+                // console.log(error);
+            });
+        }
     }
-  }
 });
 
 /***/ }),
 
-/***/ 79:
+/***/ 62:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -352,6 +420,48 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-md-12" }, [
                 _c("div", { staticClass: "float-right" }, [
+                  _vm.status == "paid"
+                    ? _c(
+                        "form",
+                        {
+                          staticClass: "d-inline-block",
+                          attrs: { action: "company/view/idea", method: "post" }
+                        },
+                        [
+                          _c("input", {
+                            attrs: { name: "_token", hidden: "" },
+                            domProps: { value: _vm.csrfToken }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: { type: "hidden", name: "iid" },
+                            domProps: { value: _vm.id }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-sm btn-success",
+                              attrs: { type: "submit", title: "More" }
+                            },
+                            [_c("i", { staticClass: "fas fa-play" })]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.status == "authorised"
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-sm btn-success",
+                          attrs: { type: "submit", title: "More" },
+                          on: { click: _vm.showModal }
+                        },
+                        [_c("i", { staticClass: "fas fa-play" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c(
                     "form",
                     {
@@ -373,20 +483,46 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-sm btn-primary",
-                          attrs: { type: "submit" }
+                          attrs: { type: "submit", title: "User Profile" }
                         },
                         [_c("i", { staticClass: "fas fa-user-check" })]
                       )
                     ]
                   ),
                   _vm._v(" "),
-                  _c("button", { staticClass: "btn btn-sm btn-success" }, [
-                    _c("i", { staticClass: "fas fa-thumbs-up" })
-                  ]),
+                  _vm.status == "fresh" || _vm.status == "notinterested"
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-sm btn-info",
+                          attrs: { title: "This is interesting?" },
+                          on: {
+                            click: function($event) {
+                              _vm.$emit("remove")
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-thumbs-up" })]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("button", { staticClass: "btn btn-sm btn-danger" }, [
-                    _c("i", { staticClass: "fas fa-thumbs-down" })
-                  ])
+                  ((_vm.status == "fresh" && _vm.status != "authorised") ||
+                    _vm.status != "notinterested") &&
+                  _vm.status != "authorised"
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-sm btn-danger",
+                          attrs: { title: "Not Interesting" },
+                          on: {
+                            click: function($event) {
+                              _vm.$emit("remove")
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-thumbs-down" })]
+                      )
+                    : _vm._e()
                 ])
               ])
             ])
@@ -405,6 +541,530 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-51d082ba", module.exports)
   }
 }
+
+/***/ }),
+
+/***/ 63:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(82)
+/* template */
+var __vue_template__ = __webpack_require__(64)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/ModalPay.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-61384672", Component.options)
+  } else {
+    hotAPI.reload("data-v-61384672", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 64:
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("transition", { attrs: { name: "modal" } }, [
+    _c("div", { staticClass: "modal-mask" }, [
+      _c("div", { staticClass: "modal-wrapper" }, [
+        _c("div", { staticClass: "modal-container" }, [
+          !_vm.refillWallet
+            ? _c(
+                "div",
+                { staticClass: "modal-body" },
+                [
+                  !_vm.transferComplete
+                    ? _vm._t("body", [
+                        _c("div", { staticClass: "card" }, [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "card-header bg-success text-white"
+                            },
+                            [
+                              _vm._v(
+                                "\n                    Confirm Payment\n                "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "card-body" }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col" }, [
+                                _vm._v(
+                                  "\n                        //\n                    "
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "row pt-3" }, [
+                              _c("div", { staticClass: "col" }, [
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [
+                                    _vm._v(
+                                      "Wallet Balance : \n                            "
+                                    ),
+                                    _c(
+                                      "span",
+                                      { staticClass: "badge badge-default" },
+                                      [_c("b", [_vm._v(_vm._s(_vm.balance))])]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  { staticClass: "btn btn-primary" },
+                                  [
+                                    _vm._v(
+                                      "Amount to Transfer : \n                            "
+                                    ),
+                                    _c(
+                                      "span",
+                                      { staticClass: "badge badge-default" },
+                                      [_c("b", [_vm._v(_vm._s(_vm.amount))])]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-success",
+                                    attrs: { title: "Transfer" },
+                                    on: { click: _vm.transferAmount }
+                                  },
+                                  [
+                                    !_vm.transfer
+                                      ? _c("span", [_vm._v("Transfer")])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.transfer
+                                      ? _c("i", {
+                                          staticClass: "fas fa-spinner fa-pulse"
+                                        })
+                                      : _vm._e()
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-secondary",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.$emit("close")
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                            Close\n                        "
+                                    )
+                                  ]
+                                )
+                              ])
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "alert alert-info" }, [
+                          _c("em", [
+                            _vm._v(
+                              "\n                If you find the proposal misleading you can report it and get your money back!\n                "
+                            )
+                          ])
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "transition",
+                    { attrs: { name: "modal" } },
+                    [
+                      _vm.transferComplete
+                        ? _vm._t("body", [
+                            _c("div", { staticClass: "card" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "card-header bg-success text-white"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                        Transfer Complete\n                    "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "card-body" }, [
+                                _c("div", { staticClass: "row" }, [
+                                  _c("div", { staticClass: "col" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "alert alert-success" },
+                                      [
+                                        _vm._v(
+                                          "\n                                You have now full access to the proposal!\n                                Wallet balance : "
+                                        ),
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass: "badge badge-primary"
+                                          },
+                                          [
+                                            _vm._v(
+                                              " " + _vm._s(_vm.balance) + " "
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "row pt-3" }, [
+                                  _c("div", { staticClass: "col" }, [
+                                    _c(
+                                      "form",
+                                      {
+                                        staticClass: "d-inline-block",
+                                        attrs: {
+                                          action: "company/view/idea",
+                                          method: "post"
+                                        }
+                                      },
+                                      [
+                                        _c("input", {
+                                          attrs: { name: "_token", hidden: "" },
+                                          domProps: { value: _vm.csrfToken }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          attrs: {
+                                            type: "hidden",
+                                            name: "iid"
+                                          },
+                                          domProps: { value: _vm.referid }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-sm btn-primary",
+                                            attrs: {
+                                              type: "submit",
+                                              title: "More"
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                   You can view the proposal here!\n                                "
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-primary btn-sm",
+                                        on: {
+                                          click: function($event) {
+                                            _vm.$emit("close")
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                Close\n                            "
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              ])
+                            ])
+                          ])
+                        : _vm._e()
+                    ],
+                    2
+                  )
+                ],
+                2
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.refillWallet
+            ? _c(
+                "div",
+                { staticClass: "modal-body" },
+                [
+                  _vm._t("body", [
+                    _c("div", { staticClass: "card" }, [
+                      _c(
+                        "div",
+                        { staticClass: "card-header bg-danger text-white" },
+                        [
+                          _vm._v(
+                            "\n                    Low Balance\n                "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body" }, [
+                        _c("div", { staticClass: "row pt-3" }, [
+                          _c("div", { staticClass: "col" }, [
+                            _c("div", { staticClass: "alert alert-info" }, [
+                              _vm._v(
+                                "\n                            Please refill your wallet.\n                            "
+                              ),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-primary btn-sm",
+                                  attrs: { href: "wallet/view" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                            Wallet\n                            "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-secondary btn-sm",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.$emit("close")
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Close\n                            "
+                                  )
+                                ]
+                              )
+                            ])
+                          ])
+                        ])
+                      ])
+                    ])
+                  ])
+                ],
+                2
+              )
+            : _vm._e()
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-61384672", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 82:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ["uid", "referid", "amount", "balance"],
+    data: function data() {
+        return {
+            transfer: false,
+            transferComplete: false,
+            csrfToken: $('meta[name="csrf-token"]').attr('content'),
+            refillWallet: false
+        };
+    },
+    mounted: function mounted() {
+        if (this.amount > balance) {
+            this.refillWallet = true;
+        }
+    },
+    methods: {
+        transferAmount: function transferAmount() {
+            this.transfer = true;
+            //ajax 
+            axios.post('wallet/transfer/t', { 'did': this.uid, 'refer_id': this.referid, 'amount': this.amount, 'type': 'debit' }).then(function (response) {
+                this.balance = response.data;
+                this.transferComplete = true;
+                var status = "paid";
+                var index = this.$parent.iindex;
+                this.$parent.iList[index]['status'] = status;
+                this.$parent.iBoughtList.push(this.$parent.iList[index]);
+                this.$parent.iList.splice(index, 1);
+            }.bind(this));
+        }
+    }
+});
 
 /***/ })
 

@@ -27,7 +27,7 @@ const user = new Vue({
         axios.post('/list/idea')
             .then(function (response) {
                 this.iList = response.data;
-                // console.log(response.data);
+                console.log(response.data);
             }.bind(this))
             .catch(function (error) {
                 // console.log(error);

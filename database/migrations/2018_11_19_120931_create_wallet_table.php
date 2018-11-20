@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIdeasTable extends Migration
+class CreateWalletTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateIdeasTable extends Migration
      */
     public function up()
     {
-        Schema::create('ideas', function (Blueprint $table) {
+        Schema::create('wallet', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('uid');
-            $table->integer('c_id');
-            $table->string('title', 100);
-            $table->text('summary');
-            $table->text('content');
-            $table->integer('price')->default('0');
-            $table->enum('status', ['fresh', 'interested', 'notinterested', 'paid'])->default('fresh');
+            $table->integer('did');
+            $table->string('refer_id', 16);
+            $table->string('amount', 30);
+            $table->enum('type', ['debit', 'credit']);
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ class CreateIdeasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ideas');
+        Schema::dropIfExists('wallet');
     }
 }

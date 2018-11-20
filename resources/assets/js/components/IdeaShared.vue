@@ -11,6 +11,13 @@
                     </div>
                     <div class="col-md-12">
                         <div class="float-right">
+                            <form method="post" action="user/idea/auth" class="d-inline" v-if="(status=='interested')">
+                                <input name="_token" :value="csrfToken" hidden>
+                                <input name="id" :value="id" hidden>
+                                <button type="submit" class="btn btn-sm btn-success" v-on:click="viewIdea" :key="'vi' + id">
+                                    Authorize
+                                </button>
+                            </form>
                             <form method="post" action="/idea/view" class="d-inline">
                                 <input name="_token" :value="csrfToken" hidden>
                                 <input name="id" :value="id" hidden>
@@ -36,7 +43,7 @@
 </template>
 <script>
 export default {
-  props: ["id", "c_id", "company", "title", "summary", "cid"],
+  props: ["id", "c_id", "company", "title", "summary", "price", "cid", "status"],
   data:function(){
       return {
           csrfToken: $('meta[name="csrf-token"]').attr('content')

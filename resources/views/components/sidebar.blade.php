@@ -17,7 +17,9 @@
                         @endif
                     </div>
                     <div class="col p-2 sidebar-box">
-                        Profile
+                        <a href="{{ route('wallet') }}" >
+                            Wallet
+                        </a>
                     </div>
                     <div class="col p-2 sidebar-box" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i>

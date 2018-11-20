@@ -39,6 +39,10 @@ Route::post('/idea/edit', 'UserFeedController@getIdeaEditView');
 Route::post('/idea/update', 'UserFeedController@editIdea')->name('edit-idea');
 Route::post('/idea/del/photo', 'UserFeedController@delIdeaPhoto')->name('delIdeaPhoto');
 Route::post('/idea/del/doc', 'UserFeedController@delIdeaDoc')->name('delIdeaDoc');
+//access to company on idea
+Route::post('user/idea/auth', 'UserFeedController@allowCompanyOnIdea');
+//set price on idea 
+Route::post('user/idea/set/price', 'UserFeedController@setPriceOnIdea');
 
 /* ajax routes ---------------- */
 Route::post('/list/company', 'UserFeedController@listCompanies');
@@ -50,6 +54,22 @@ Route::post('/del/idea', 'UserFeedController@delAnIdea'); //removes an idea an r
 /* company-feed
 ___________________________________________________________________________*/
 Route::post('company/view/user', 'CompanyFeedController@showUser')->name('showUser');
+Route::post('company/view/idea', 'CompanyFeedController@showIdea')->name('showIdea');
+Route::post('company/mark/idea', 'CompanyFeedController@markIdeaForReview')->name('mark-for-review');
 
-/* ajax routes ---------------- */
-Route::post('company/list/ideas', 'CompanyFeedController@listIdeas');
+/* ajax routes - company feed*/
+Route::post('company/list/ideas/r', 'CompanyFeedController@listIdeasForReview');
+Route::post('company/list/ideas/i', 'CompanyFeedController@listIdeasInterested');
+Route::post('company/list/ideas/p', 'CompanyFeedController@listIdeasBought');
+Route::post('company/change/idea/s', 'CompanyFeedController@changeIdeaStatus');
+
+/* wallet 
+_________________________________________________________________________________*/
+Route::get('wallet/view', 'WalletController@showWallet')->name('wallet');
+Route::post('wallet/pay', 'WalletController@walletPay')->name('pay');
+
+// ajax routes - wallet
+Route::get('wallet/get/balance', 'WalletController@walletBalance');
+
+// ajax routes - wallet_temp
+Route::post('wallet/transfer/t', 'WalletController@walletTransfer');

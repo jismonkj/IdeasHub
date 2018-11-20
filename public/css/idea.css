@@ -91,7 +91,7 @@ main#content {
 }
 
 .title {
-    font-size: 4.5rem;
+    font-size: 4.5em;
     font-family: var(--secondary-font-family);
 }
 
@@ -115,7 +115,7 @@ main#content {
 ------------------------------------------------------------*/
 .btn.btn-primary {
     background: var(--main-bg);
-    border: none;
+    border: 1px solid var(--main-bg);
     outline: none;
     box-shadow: none;
     border-radius: 5px;
@@ -125,10 +125,10 @@ main#content {
 .btn.btn-primary:focus,
 .btn.btn-primary:visited,
 .btn.btn-primary:active {
-    background: var(--main-bg) !important;
-    border: none !important;
+    background: #0b0b58e8 !important;
+    border: 1px solid var(--main-bg) !important;
     outline: none !important;
-    box-shadow: 0 0 4px 0.2rem rgba(11, 22, 66, 0.24) !important;
+    /* box-shadow: 0 0 0px 0.2rem rgba(11, 22, 66, 0.24) !important; */
 }
 
 .form-control:focus {
@@ -193,7 +193,7 @@ main#content {
 }
 
 i.profile-icon {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     padding-right: 10px;
     padding-left: 30px;
     width: 3.6rem;
@@ -425,3 +425,69 @@ i.user-feed.profile-icon {
 /* idea-preview end */
 
 
+/* modal-pay
+============================== */
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: table;
+    transition: opacity .3s ease;
+  }
+  
+  .modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+  }
+  
+  .modal-container {
+    width: 60vw;
+    margin: 0px auto;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+    transition: all .3s ease;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  
+  .modal-header h3 {
+    margin-top: 0;
+    color: #42b983;
+  }
+  
+  .modal-body {
+    margin: 20px 0;
+  }
+  
+  .modal-default-button {
+    float: right;
+  }
+  
+  /*
+   * The following styles are auto-applied to elements with
+   * transition="modal" when their visibility is toggled
+   * by Vue.js.
+   *
+   * You can easily play with the modal transition by editing
+   * these styles.
+   */
+  
+  .modal-enter {
+    opacity: 0;
+  }
+  
+  .modal-leave-active {
+    opacity: 0;
+  }
+  
+  .modal-enter .modal-container,
+  .modal-leave-active .modal-container {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+/* modal-pay end */

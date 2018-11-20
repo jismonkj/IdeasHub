@@ -16,9 +16,6 @@
             <!-- <i class="fas fa-phone profile-icon"></i> -->
                 {{ $profile['contact'] }}
             </p>
-            <p id="profileEdit" class="float-right profile-d-box" v-on:click="redirectEditProfile" v-bind:data-uid="id = '{{ Auth::id() }}'" v-bind:data-type="type = '{{ Auth::user()->u_type }}'">
-                <i class="fas fa-edit"></i>
-            </p>
         </div>
     </div>
 </div>
