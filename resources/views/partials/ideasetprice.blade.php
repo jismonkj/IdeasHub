@@ -8,7 +8,7 @@
             {{ $data['idea']['summary'] }}
         </div>
     </div>
-    <form method="post" action="user/idea/set/price" class="py-4">
+    <form method="post" action="{{ route('set-ideaprice') }}" class="py-4" id="regForm">
     @csrf
     <div class="row">
         <div class="col-md-4">
@@ -17,8 +17,8 @@
         <input name="iid" value="{{ $data['idea']['id']}}" hidden>
         <div class="col-md-4">
             <button class="btn btn-primary" type="submit">
-                <i class="fas fa-save"></i>
-            </button>
+                <i class="fas fa-rupee-sign"></i>
+            </button> |
             <button class="btn btn-primary" v-on:click="redirectHome"><i class="fas fa-home"></i></button>
         </div>
         <div class="col text-right">       

@@ -165,16 +165,20 @@ class UserFeedController extends Controller
     {      
         $idea = Idea::find($request->id);
         $idea->status = "authorised";
-        // $idea->save();
+        $idea->save();
 
         //company name
         $company = CompanyProfile::find($idea->c_id);
         // return $idea;
         return view('info', ['info' => '<b>Look!</b> Here\'s your turn to set a price for your idea!    Set Price For Your Proposal!', 'htmlclass' => 'alert-success', 'more' => 'partials.ideasetprice', 'data' => ['idea' => $idea], 'title'=>$company->uni_name]);
     }
-
     public function setPriceOnIdea(Request $request)
     {
-        
+        $idea = Idea::find($request->iid);
+        $idea->price = $request->price;
+        $idea->save();
+
+
+        return view('info', ['info' => '<b>Well done!</b> Price is set.', 'htmlclass' => 'alert-success', 'title'=>'Price Fix', 'ret_url'=>'/home']);
     }
 }

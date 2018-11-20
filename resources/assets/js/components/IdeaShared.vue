@@ -11,10 +11,16 @@
                     </div>
                     <div class="col-md-12">
                         <div class="float-right">
+                            <button v-if="(status=='paid')" type="" class="btn btn-sm btn-success" :key="'pi' + id">
+                                Paid <i class="fas fa-rupee-sign"></i> {{ price }}
+                            </button>
+                            <button v-if="(status=='authorised')" type="" class="btn btn-sm btn-info" :key="'wa' + id">
+                                <i class="fas fa-rupee-sign"></i> {{ price }}
+                            </button>
                             <form method="post" action="user/idea/auth" class="d-inline" v-if="(status=='interested')">
                                 <input name="_token" :value="csrfToken" hidden>
                                 <input name="id" :value="id" hidden>
-                                <button type="submit" class="btn btn-sm btn-success" v-on:click="viewIdea" :key="'vi' + id">
+                                <button type="submit" class="btn btn-sm btn-success" v-on:click="viewIdea" :key="'auth' + id">
                                     Authorize
                                 </button>
                             </form>

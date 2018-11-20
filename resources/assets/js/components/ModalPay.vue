@@ -20,10 +20,10 @@
                     <div class="row pt-3">
                         <div class="col">
                             <button class="btn btn-primary">Wallet Balance : 
-                                <span class="badge badge-default"><b>{{ balance }}</b></span>
+                                <span class="badge badge-default"><b><i class="fas fa-rupee-sign"></i> {{ balance }}</b></span>
                             </button>
                             <button class="btn btn-primary">Amount to Transfer : 
-                                <span class="badge badge-default"><b>{{ amount }}</b></span>
+                                <span class="badge badge-default"><b><i class="fas fa-rupee-sign"></i>{{ amount }}</b></span>
                             </button>
                             <button class="btn btn-success" title="Transfer" @click="transferAmount">
                                 <span v-if="!transfer">Transfer</span>

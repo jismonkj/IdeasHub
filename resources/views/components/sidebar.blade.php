@@ -1,7 +1,5 @@
 <nav id="sidebar" class="active">
             <div class="sidebar-header text-center">
-                <i class="fas fa-user display-1"></i>
-                <h3>{{Auth::user()->name}}</h3>
                 <div class="sidebar-row">
                     <div class="col p-2 sidebar-box">
                         @if(Auth::user()->u_type=="company")

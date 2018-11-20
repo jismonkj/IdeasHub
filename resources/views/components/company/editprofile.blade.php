@@ -46,7 +46,7 @@
                 <!-- <div class="input-group mb-3"> -->
                     <select class="custom-select" id="state_id" name="state_id">
                         @foreach ($states as $state)
-                            <option value="{{ $state['id'] }}"
+                            <option value="{{ $state['id'] }}">
                             @if ($profile['state'] == $state['state'])
                                 {{ 'selected' }}
                             @endif>{{ $state['state'] }}</option>

@@ -18,8 +18,8 @@
                                     <i class="fas fa-play"></i>
                                 </button>
                             </form>
-                             <button v-if="(status=='authorised')" class="btn btn-sm btn-success" type="submit" title="More" v-on:click="showModal">
-                                <i class="fas fa-play"></i>
+                             <button v-if="(status=='authorised')" class="btn btn-sm btn-success" type="submit" title="Pay" v-on:click="showModal">
+                                <i class="fas fa-credit-card"></i>
                             </button>
                             <form action="company/view/user" method="post" class="d-inline-block">
                                 <input name="_token" :value="csrfToken" hidden>

@@ -2,8 +2,8 @@
     <div class="row">
         <div class="col-md-8">
             <div class="card">
-                <div class="p-3 text-center">
-                    <h4>More Companies</h4>
+                <div class="pt-2 text-center">
+                    <h5>More Companies</h5>
                 </div>
             </div>
             <!-- company list -->
@@ -12,8 +12,8 @@
         </div>
         <div class="col-md-4">
             <div class="card">
-                <div class="p-3 text-center">
-                    <h4>Your Ideas</h4>
+                <div class="pt-2 text-center">
+                    <h5>Your Ideas</h5>
                 </div>
             </div>
             <!-- ideas sent -->

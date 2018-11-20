@@ -42,7 +42,7 @@ Route::post('/idea/del/doc', 'UserFeedController@delIdeaDoc')->name('delIdeaDoc'
 //access to company on idea
 Route::post('user/idea/auth', 'UserFeedController@allowCompanyOnIdea');
 //set price on idea 
-Route::post('user/idea/set/price', 'UserFeedController@setPriceOnIdea');
+Route::post('user/idea/set/price', 'UserFeedController@setPriceOnIdea')->name('set-ideaprice');
 
 /* ajax routes ---------------- */
 Route::post('/list/company', 'UserFeedController@listCompanies');
@@ -66,7 +66,7 @@ Route::post('company/change/idea/s', 'CompanyFeedController@changeIdeaStatus');
 /* wallet 
 _________________________________________________________________________________*/
 Route::get('wallet/view', 'WalletController@showWallet')->name('wallet');
-Route::post('wallet/pay', 'WalletController@walletPay')->name('pay');
+// Route::post('wallet/pay', 'WalletController@walletPay')->name('pay');
 
 // ajax routes - wallet
 Route::get('wallet/get/balance', 'WalletController@walletBalance');

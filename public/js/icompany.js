@@ -455,10 +455,10 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn btn-sm btn-success",
-                          attrs: { type: "submit", title: "More" },
+                          attrs: { type: "submit", title: "Pay" },
                           on: { click: _vm.showModal }
                         },
-                        [_c("i", { staticClass: "fas fa-play" })]
+                        [_c("i", { staticClass: "fas fa-credit-card" })]
                       )
                     : _vm._e(),
                   _vm._v(" "),
@@ -550,9 +550,9 @@ if (false) {
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(82)
+var __vue_script__ = __webpack_require__(64)
 /* template */
-var __vue_template__ = __webpack_require__(64)
+var __vue_template__ = __webpack_require__(65)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -593,6 +593,159 @@ module.exports = Component.exports
 /***/ }),
 
 /***/ 64:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ["uid", "referid", "amount", "balance"],
+    data: function data() {
+        return {
+            transfer: false,
+            transferComplete: false,
+            csrfToken: $('meta[name="csrf-token"]').attr('content'),
+            refillWallet: false
+        };
+    },
+    mounted: function mounted() {
+        if (this.amount > balance) {
+            this.refillWallet = true;
+        }
+    },
+    methods: {
+        transferAmount: function transferAmount() {
+            this.transfer = true;
+            //ajax 
+            axios.post('wallet/transfer/t', { 'did': this.uid, 'refer_id': this.referid, 'amount': this.amount, 'type': 'debit' }).then(function (response) {
+                this.balance = response.data;
+                this.transferComplete = true;
+                var status = "paid";
+                var index = this.$parent.iindex;
+                this.$parent.iList[index]['status'] = status;
+                this.$parent.iBoughtList.push(this.$parent.iList[index]);
+                this.$parent.iList.splice(index, 1);
+            }.bind(this));
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 65:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -644,7 +797,14 @@ var render = function() {
                                     _c(
                                       "span",
                                       { staticClass: "badge badge-default" },
-                                      [_c("b", [_vm._v(_vm._s(_vm.balance))])]
+                                      [
+                                        _c("b", [
+                                          _c("i", {
+                                            staticClass: "fas fa-rupee-sign"
+                                          }),
+                                          _vm._v(" " + _vm._s(_vm.balance))
+                                        ])
+                                      ]
                                     )
                                   ]
                                 ),
@@ -659,7 +819,14 @@ var render = function() {
                                     _c(
                                       "span",
                                       { staticClass: "badge badge-default" },
-                                      [_c("b", [_vm._v(_vm._s(_vm.amount))])]
+                                      [
+                                        _c("b", [
+                                          _c("i", {
+                                            staticClass: "fas fa-rupee-sign"
+                                          }),
+                                          _vm._v(_vm._s(_vm.amount))
+                                        ])
+                                      ]
                                     )
                                   ]
                                 ),
@@ -912,159 +1079,6 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-61384672", module.exports)
   }
 }
-
-/***/ }),
-
-/***/ 82:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ["uid", "referid", "amount", "balance"],
-    data: function data() {
-        return {
-            transfer: false,
-            transferComplete: false,
-            csrfToken: $('meta[name="csrf-token"]').attr('content'),
-            refillWallet: false
-        };
-    },
-    mounted: function mounted() {
-        if (this.amount > balance) {
-            this.refillWallet = true;
-        }
-    },
-    methods: {
-        transferAmount: function transferAmount() {
-            this.transfer = true;
-            //ajax 
-            axios.post('wallet/transfer/t', { 'did': this.uid, 'refer_id': this.referid, 'amount': this.amount, 'type': 'debit' }).then(function (response) {
-                this.balance = response.data;
-                this.transferComplete = true;
-                var status = "paid";
-                var index = this.$parent.iindex;
-                this.$parent.iList[index]['status'] = status;
-                this.$parent.iBoughtList.push(this.$parent.iList[index]);
-                this.$parent.iList.splice(index, 1);
-            }.bind(this));
-        }
-    }
-});
 
 /***/ })
 

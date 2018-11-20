@@ -802,7 +802,7 @@ var user = new Vue({
 
         axios.post('/list/idea').then(function (response) {
             this.iList = response.data;
-            console.log(response.data);
+            // console.log(response.data);
         }.bind(this)).catch(function (error) {
             // console.log(error);
         });
@@ -1252,6 +1252,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id", "c_id", "company", "title", "summary", "price", "cid", "status"],
@@ -1304,6 +1310,45 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-md-12" }, [
                 _c("div", { staticClass: "float-right" }, [
+                  _vm.status == "paid"
+                    ? _c(
+                        "button",
+                        {
+                          key: "pi" + _vm.id,
+                          staticClass: "btn btn-sm btn-success",
+                          attrs: { type: "" }
+                        },
+                        [
+                          _vm._v("\n                                Paid "),
+                          _c("i", { staticClass: "fas fa-rupee-sign" }),
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.price) +
+                              "\n                            "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.status == "authorised"
+                    ? _c(
+                        "button",
+                        {
+                          key: "wa" + _vm.id,
+                          staticClass: "btn btn-sm btn-info",
+                          attrs: { type: "" }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-rupee-sign" }),
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.price) +
+                              "\n                            "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
                   _vm.status == "interested"
                     ? _c(
                         "form",
@@ -1325,7 +1370,7 @@ var render = function() {
                           _c(
                             "button",
                             {
-                              key: "vi" + _vm.id,
+                              key: "auth" + _vm.id,
                               staticClass: "btn btn-sm btn-success",
                               attrs: { type: "submit" },
                               on: { click: _vm.viewIdea }

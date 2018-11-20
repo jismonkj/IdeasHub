@@ -66,4 +66,9 @@ class CompanyFeedController extends Controller
         return view('components.feeds.showprofile')->with(['profile' => $profile]);
     }
 
+    public function markIdeaForReview()
+    {
+        return view('info', ['info' => '<b>Coming Soon!</b>', 'htmlclass' => 'alert-info', 'title'=> 'Mark for Review']);
+    }
+
 }

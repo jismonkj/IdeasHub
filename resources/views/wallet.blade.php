@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">  
                     <div class="alert {{ $alertClass }}">
-                    Balance Amount : {{ $balance }}
+                    Balance Amount : <i class="fas fa-rupee-sign"></i> {{ $balance }}
                     </div>                
                     @if(!$minBalance)
                         <div class="row py-2">

@@ -2,8 +2,8 @@
     <div class="row">
         <div class="col-md-8">
             <div class="card">
-                <div class="p-3 text-center">
-                    <h4>Ideas For Review </h4>
+                <div class="pt-2 text-center">
+                    <h5>Ideas For Review </h5>
                 </div>
             </div>
             <!-- ideas sent -->
@@ -12,16 +12,16 @@
         </div>
         <div class="col-md-4">
             <div class="card">
-                <div class="p-3 text-center">
-                    <h4>Interested</h4>
+                <div class="pt-2 text-center">
+                    <h5>Interesting!</h5>
                 </div>
             </div>
             <!-- ideas sent -->
             <idea-shared v-for="(item, index) in iList" v-bind="item" v-bind:index="index" :key="item.id" v-bind:path="preFix" v-on:remove="delInteresteOnIdea(index, item.id)" v-bind:showModal="showModal" >
             </idea-shared>
             <div class="card">
-                <div class="p-3 text-center">
-                    <h4>Paid</h4>
+                <div class="pt-2 text-center">
+                    <h5>Collections</h5>
                 </div>
             </div>
             <!-- ideas sent -->

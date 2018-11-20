@@ -74,7 +74,7 @@
 
 <div class="row py-4">
     <div class="col">
-        <em>NB: You can finalize the payment or Mark it for review if you find the proposal misleading!</em>
+        <em>NB: You can mark the proposal for review if you find the it misleading!</em>
     </div>
 </div>
 <div class="row">
@@ -84,13 +84,6 @@
             <input name="id" value="{{ $data['idea']['id'] }}" hidden>
             <button class="btn btn-sm btn-danger" type="submit" title="Misleading">
                 <i class="fas fa-angry"></i>
-            </button>
-        </form>
-        <form method="post" action="{{ route('pay') }}" class="d-inline">
-        @csrf
-            <input name="id" value="{{ $data['idea']['id'] }}" hidden>
-            <button class="btn btn-sm btn-success" type="submit" title="Finalize Payment">
-            <i class="fas fa-credit-card"></i>
             </button>
         </form>
         <form action="{{route('showUser')}}" method="post" class="d-inline-block">
