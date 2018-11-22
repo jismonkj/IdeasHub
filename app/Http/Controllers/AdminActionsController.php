@@ -6,6 +6,11 @@ use Ideashub\UserProfile;
 
 class AdminActionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function getDashboard()
     {
         // fetch users list

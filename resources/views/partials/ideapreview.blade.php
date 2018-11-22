@@ -60,9 +60,9 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
             <div class="card-body row">
                 @foreach($data['docs'] as $doc)
-                <div class="col-md-6">
-                    <a href="{{asset('storage/public/'.$doc['doc_path'])}}" target="_blank">
-                        <img src="{{asset('storage/public/'.$doc['doc_path'])}}" alt="" class="img-responsive idea-photo d-block">
+                <div class="col-md-6 bg-dark">
+                    <a href="{{asset('storage/'.$doc['doc_path'])}}" target="_blank">
+                        <img src="{{asset('storage/'.$doc['doc_path'])}}" alt="" class="img-responsive idea-photo d-block">
                     </a>
                 </div>
                 @endforeach

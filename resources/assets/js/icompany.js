@@ -12,7 +12,6 @@ const company = new Vue({
         csrfToken: $('meta[name="csrf-token"]').attr('content'),
         showModal: false,
         payAmount: '...',
-        walletBalance: '..',
         user_id:'',
         iid:'',
         iindex:''

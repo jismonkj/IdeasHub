@@ -18,7 +18,7 @@
                 </div>
             </div>
 
-            @component('components.forms.input', ['label'=>'forminputs.dob', 'type'=>'date', 'id'=>'dob', 'required'=>'required', 'autofocus'=>''])
+            @component('components.forms.input', ['label'=>'forminputs.dob', 'type'=>'text', 'id'=>'dob', 'required'=>'required', 'autofocus'=>''])
             @endcomponent
 
             @component('components.forms.input', ['label'=>'forminputs.city', 'type'=>'text', 'id'=>'city', 'required'=>'required', 'autofocus'=>''])

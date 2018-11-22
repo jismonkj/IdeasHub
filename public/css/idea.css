@@ -495,3 +495,10 @@ i.user-feed.profile-icon {
     transform: scale(1.1);
   }
 /* modal-pay end */
+
+/* cards
+======================== */
+ .card.section-header{
+     border:0;
+ }
+/* cards-end */

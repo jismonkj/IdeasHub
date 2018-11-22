@@ -1,4 +1,4 @@
-<div class="row mt-1 company-profile-cover user-feed" style="background-image:url('{{ asset('storage/public/'.$profile['avatar']) }}')">
+<div class="row mt-1 company-profile-cover user-feed" style="background-image:url('{{ asset('storage/'.$profile['avatar']) }}')">
     <div class="col-md-8">
     </div>
     <div class="col-md-4 text-center">

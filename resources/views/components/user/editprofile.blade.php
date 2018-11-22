@@ -10,7 +10,7 @@
             @component('components.forms.input', ['label'=>'forminputs.lname', 'type'=>'text', 'id'=>'lname', 'required'=>'', 'autofocus'=>'', 'data'=>$profile['lname']])
             @endcomponent
 
-            @component('components.forms.input', ['label'=>'forminputs.dob', 'type'=>'date', 'id'=>'dob', 'required'=>'required', 'autofocus'=>'', 'data'=>$profile['dob']])
+            @component('components.forms.input', ['label'=>'forminputs.dob', 'type'=>'text', 'id'=>'dob', 'required'=>'required', 'autofocus'=>'', 'data'=>$profile['dob']])
             @endcomponent
 
             @component('components.forms.input', ['label'=>'forminputs.city', 'type'=>'text', 'id'=>'city', 'required'=>'required', 'autofocus'=>'', 'data'=>$profile['city']])
@@ -23,7 +23,7 @@
                 <!-- <div class="input-group mb-3"> -->
                     <select class="custom-select" id="state_id" name="state_id">
                         @foreach ($states as $state)
-                            <option value="{{ $state['id'] }}"
+                            <option value="{{ $state['id'] }}">
                             @if ($profile['state'] == $state['state'])
                                 {{ 'selected' }}
                             @endif>{{ $state['state'] }}</option>

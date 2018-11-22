@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('css/idea.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -64,6 +65,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/idea.js') }}" defer></script>
     <script src="{{ asset('js/validate.js') }}" defer></script>
+    <script src="{{ asset('js/jquery-ui.js') }}" defer></script>
    @auth
         @if (Auth::user()->u_type== 'company')
         <script src="{{ asset('js/icompany.js') }}" defer></script>

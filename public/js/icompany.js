@@ -200,7 +200,6 @@ var company = new Vue({
         csrfToken: $('meta[name="csrf-token"]').attr('content'),
         showModal: false,
         payAmount: '...',
-        walletBalance: '..',
         user_id: '',
         iid: '',
         iindex: ''
@@ -370,14 +369,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$parent.user_id = this.uid;
             this.$parent.iid = this.id;
             this.$parent.iindex = this.index;
-
-            //wallet balance
-            axios.get('wallet/get/balance').then(function (response) {
-                this.$parent.walletBalance = response.data;
-                // console.log(response.data);
-            }.bind(this)).catch(function (error) {
-                // console.log(error);
-            });
         }
     }
 });
@@ -710,21 +701,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ["uid", "referid", "amount", "balance"],
+    props: ["uid", "referid", "amount"],
     data: function data() {
         return {
             transfer: false,
             transferComplete: false,
             csrfToken: $('meta[name="csrf-token"]').attr('content'),
-            refillWallet: false
+            lowBalance: false,
+            loader: true,
+            balance: "..."
         };
     },
     mounted: function mounted() {
-        if (this.amount > balance) {
-            this.refillWallet = true;
-        }
+        //wallet balance
+        axios.get('wallet/get/balance').then(function (response) {
+            this.balance = response.data;
+            this.loader = false;
+            if (this.amount > this.balance) {
+                this.lowBalance = true;
+            }
+        }.bind(this)).catch(function (error) {
+            // console.log(error);
+        });
     },
     methods: {
         transferAmount: function transferAmount() {
@@ -755,138 +767,14 @@ var render = function() {
   return _c("transition", { attrs: { name: "modal" } }, [
     _c("div", { staticClass: "modal-mask" }, [
       _c("div", { staticClass: "modal-wrapper" }, [
-        _c("div", { staticClass: "modal-container" }, [
-          !_vm.refillWallet
-            ? _c(
-                "div",
-                { staticClass: "modal-body" },
-                [
-                  !_vm.transferComplete
-                    ? _vm._t("body", [
-                        _c("div", { staticClass: "card" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "card-header bg-success text-white"
-                            },
-                            [
-                              _vm._v(
-                                "\n                    Confirm Payment\n                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("div", { staticClass: "row" }, [
-                              _c("div", { staticClass: "col" }, [
-                                _vm._v(
-                                  "\n                        //\n                    "
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "row pt-3" }, [
-                              _c("div", { staticClass: "col" }, [
-                                _c(
-                                  "button",
-                                  { staticClass: "btn btn-primary" },
-                                  [
-                                    _vm._v(
-                                      "Wallet Balance : \n                            "
-                                    ),
-                                    _c(
-                                      "span",
-                                      { staticClass: "badge badge-default" },
-                                      [
-                                        _c("b", [
-                                          _c("i", {
-                                            staticClass: "fas fa-rupee-sign"
-                                          }),
-                                          _vm._v(" " + _vm._s(_vm.balance))
-                                        ])
-                                      ]
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  { staticClass: "btn btn-primary" },
-                                  [
-                                    _vm._v(
-                                      "Amount to Transfer : \n                            "
-                                    ),
-                                    _c(
-                                      "span",
-                                      { staticClass: "badge badge-default" },
-                                      [
-                                        _c("b", [
-                                          _c("i", {
-                                            staticClass: "fas fa-rupee-sign"
-                                          }),
-                                          _vm._v(_vm._s(_vm.amount))
-                                        ])
-                                      ]
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-success",
-                                    attrs: { title: "Transfer" },
-                                    on: { click: _vm.transferAmount }
-                                  },
-                                  [
-                                    !_vm.transfer
-                                      ? _c("span", [_vm._v("Transfer")])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    _vm.transfer
-                                      ? _c("i", {
-                                          staticClass: "fas fa-spinner fa-pulse"
-                                        })
-                                      : _vm._e()
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-secondary",
-                                    on: {
-                                      click: function($event) {
-                                        _vm.$emit("close")
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                            Close\n                        "
-                                    )
-                                  ]
-                                )
-                              ])
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "alert alert-info" }, [
-                          _c("em", [
-                            _vm._v(
-                              "\n                If you find the proposal misleading you can report it and get your money back!\n                "
-                            )
-                          ])
-                        ])
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "transition",
-                    { attrs: { name: "modal" } },
+        !_vm.loader
+          ? _c("div", { staticClass: "modal-container" }, [
+              !_vm.lowBalance
+                ? _c(
+                    "div",
+                    { staticClass: "modal-body" },
                     [
-                      _vm.transferComplete
+                      !_vm.transferComplete
                         ? _vm._t("body", [
                             _c("div", { staticClass: "card" }, [
                               _c(
@@ -897,7 +785,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                        Transfer Complete\n                    "
+                                    "\n                    Confirm Payment\n                "
                                   )
                                 ]
                               ),
@@ -905,25 +793,8 @@ var render = function() {
                               _c("div", { staticClass: "card-body" }, [
                                 _c("div", { staticClass: "row" }, [
                                   _c("div", { staticClass: "col" }, [
-                                    _c(
-                                      "div",
-                                      { staticClass: "alert alert-success" },
-                                      [
-                                        _vm._v(
-                                          "\n                                You have now full access to the proposal!\n                                Wallet balance : "
-                                        ),
-                                        _c(
-                                          "span",
-                                          {
-                                            staticClass: "badge badge-primary"
-                                          },
-                                          [
-                                            _vm._v(
-                                              " " + _vm._s(_vm.balance) + " "
-                                            )
-                                          ]
-                                        )
-                                      ]
+                                    _vm._v(
+                                      "\n                        //\n                    "
                                     )
                                   ])
                                 ]),
@@ -931,42 +802,48 @@ var render = function() {
                                 _c("div", { staticClass: "row pt-3" }, [
                                   _c("div", { staticClass: "col" }, [
                                     _c(
-                                      "form",
-                                      {
-                                        staticClass: "d-inline-block",
-                                        attrs: {
-                                          action: "company/view/idea",
-                                          method: "post"
-                                        }
-                                      },
+                                      "button",
+                                      { staticClass: "btn btn-primary" },
                                       [
-                                        _c("input", {
-                                          attrs: { name: "_token", hidden: "" },
-                                          domProps: { value: _vm.csrfToken }
-                                        }),
-                                        _vm._v(" "),
-                                        _c("input", {
-                                          attrs: {
-                                            type: "hidden",
-                                            name: "iid"
-                                          },
-                                          domProps: { value: _vm.referid }
-                                        }),
-                                        _vm._v(" "),
+                                        _vm._v(
+                                          "Wallet Balance : \n                            "
+                                        ),
                                         _c(
-                                          "button",
+                                          "span",
                                           {
-                                            staticClass:
-                                              "btn btn-sm btn-primary",
-                                            attrs: {
-                                              type: "submit",
-                                              title: "More"
-                                            }
+                                            staticClass: "badge badge-default"
                                           },
                                           [
-                                            _vm._v(
-                                              "\n                                   You can view the proposal here!\n                                "
-                                            )
+                                            _c("b", [
+                                              _c("i", {
+                                                staticClass: "fas fa-rupee-sign"
+                                              }),
+                                              _vm._v(" " + _vm._s(_vm.balance))
+                                            ])
+                                          ]
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      { staticClass: "btn btn-primary" },
+                                      [
+                                        _vm._v(
+                                          "Amount to Transfer : \n                            "
+                                        ),
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass: "badge badge-default"
+                                          },
+                                          [
+                                            _c("b", [
+                                              _c("i", {
+                                                staticClass: "fas fa-rupee-sign"
+                                              }),
+                                              _vm._v(_vm._s(_vm.amount))
+                                            ])
                                           ]
                                         )
                                       ]
@@ -975,7 +852,28 @@ var render = function() {
                                     _c(
                                       "button",
                                       {
-                                        staticClass: "btn btn-primary btn-sm",
+                                        staticClass: "btn btn-success",
+                                        attrs: { title: "Transfer" },
+                                        on: { click: _vm.transferAmount }
+                                      },
+                                      [
+                                        !_vm.transfer
+                                          ? _c("span", [_vm._v("Transfer")])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm.transfer
+                                          ? _c("i", {
+                                              staticClass:
+                                                "fas fa-spinner fa-pulse"
+                                            })
+                                          : _vm._e()
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-secondary",
                                         on: {
                                           click: function($event) {
                                             _vm.$emit("close")
@@ -984,88 +882,257 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          "\n                                Close\n                            "
+                                          "\n                            Close\n                        "
                                         )
                                       ]
                                     )
                                   ])
                                 ])
                               ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "alert alert-info" }, [
+                              _c("em", [
+                                _vm._v(
+                                  "\n                If you find the proposal misleading you can report it and get your money back!\n                "
+                                )
+                              ])
                             ])
                           ])
-                        : _vm._e()
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "transition",
+                        { attrs: { name: "modal" } },
+                        [
+                          _vm.transferComplete
+                            ? _vm._t("body", [
+                                _c("div", { staticClass: "card" }, [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "card-header bg-success text-white"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                    Transfer Complete\n                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "card-body" }, [
+                                    _c("div", { staticClass: "row" }, [
+                                      _c("div", { staticClass: "col" }, [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass: "alert alert-success"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                            You have now full access to the proposal!\n                            Wallet balance : "
+                                            ),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "badge badge-primary"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  " " +
+                                                    _vm._s(_vm.balance) +
+                                                    " "
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "row pt-3" }, [
+                                      _c("div", { staticClass: "col" }, [
+                                        _c(
+                                          "form",
+                                          {
+                                            staticClass: "d-inline-block",
+                                            attrs: {
+                                              action: "company/view/idea",
+                                              method: "post"
+                                            }
+                                          },
+                                          [
+                                            _c("input", {
+                                              attrs: {
+                                                name: "_token",
+                                                hidden: ""
+                                              },
+                                              domProps: { value: _vm.csrfToken }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("input", {
+                                              attrs: {
+                                                type: "hidden",
+                                                name: "iid"
+                                              },
+                                              domProps: { value: _vm.referid }
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-sm btn-primary",
+                                                attrs: {
+                                                  type: "submit",
+                                                  title: "More"
+                                                }
+                                              },
+                                              [
+                                                _vm._v(
+                                                  "\n                                You can view the proposal here!\n                            "
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-primary btn-sm",
+                                            on: {
+                                              click: function($event) {
+                                                _vm.$emit("close")
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                            Close\n                        "
+                                            )
+                                          ]
+                                        )
+                                      ])
+                                    ])
+                                  ])
+                                ])
+                              ])
+                            : _vm._e()
+                        ],
+                        2
+                      )
                     ],
                     2
                   )
-                ],
-                2
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.refillWallet
-            ? _c(
-                "div",
-                { staticClass: "modal-body" },
-                [
-                  _vm._t("body", [
-                    _c("div", { staticClass: "card" }, [
-                      _c(
-                        "div",
-                        { staticClass: "card-header bg-danger text-white" },
-                        [
-                          _vm._v(
-                            "\n                    Low Balance\n                "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "card-body" }, [
-                        _c("div", { staticClass: "row pt-3" }, [
-                          _c("div", { staticClass: "col" }, [
-                            _c("div", { staticClass: "alert alert-info" }, [
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.lowBalance
+                ? _c(
+                    "div",
+                    { staticClass: "modal-body" },
+                    [
+                      _vm._t("body", [
+                        _c("div", { staticClass: "card" }, [
+                          _c(
+                            "div",
+                            { staticClass: "card-header bg-danger text-white" },
+                            [
                               _vm._v(
-                                "\n                            Please refill your wallet.\n                            "
-                              ),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-primary btn-sm",
-                                  attrs: { href: "wallet/view" }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                            Wallet\n                            "
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-secondary btn-sm",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.$emit("close")
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                Close\n                            "
-                                  )
-                                ]
+                                "\n                    Low Balance\n                "
                               )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "card-body" }, [
+                            _c("div", { staticClass: "row pt-3" }, [
+                              _c("div", { staticClass: "col" }, [
+                                _c("div", { staticClass: "alert alert-info" }, [
+                                  _vm._v(
+                                    "\n                                Please refill your wallet.\n                            "
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "float-right" }, [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn btn-primary btn-sm",
+                                      attrs: { href: "wallet/view" }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                Wallet\n                                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-secondary btn-sm",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.$emit("close")
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                    Close\n                                "
+                                      )
+                                    ]
+                                  )
+                                ])
+                              ])
                             ])
                           ])
                         ])
                       ])
-                    ])
-                  ])
-                ],
-                2
-              )
-            : _vm._e()
-        ])
+                    ],
+                    2
+                  )
+                : _vm._e()
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.loader
+          ? _c("div", { staticClass: "modal-container" }, [
+              _c("div", { staticClass: "modal-body" }, [
+                _c("div", { staticClass: "card" }, [
+                  _c(
+                    "div",
+                    { staticClass: "card-header bg-danger text-white" },
+                    [
+                      _vm._v(
+                        "\n                    Please Wait.. \n                    "
+                      ),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "close",
+                          attrs: { type: "button", "aria-label": "Close" },
+                          on: {
+                            click: function($event) {
+                              _vm.$emit("close")
+                            }
+                          }
+                        },
+                        [
+                          _c("span", { attrs: { "aria-hidden": "true" } }, [
+                            _vm._v("×")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ])
+          : _vm._e()
       ])
     ])
   ])

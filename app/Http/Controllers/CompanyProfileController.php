@@ -7,6 +7,7 @@ use Ideashub\State;
 use Ideashub\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class CompanyProfileController extends Controller
 {
@@ -25,6 +26,9 @@ class CompanyProfileController extends Controller
         }
         $state = State::find($profile['state_id']);
         $profile['state'] = $state['state'];
+        if(!File::exists("storage/".$profile->avatar)){
+            $profile->avatar = "images/user.jpg";
+         }
         return view('profile')->with(['profile' => $profile, 'flag' => 'view']);
     }
 
@@ -49,7 +53,7 @@ class CompanyProfileController extends Controller
         $imgPath = "";
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $image = $request->file('avatar');
-            $imgPath = $image->store('public/images/' . Auth::id());
+            $imgPath = $image->store('images/' . Auth::id());
         }
         $profile = new CompanyProfile($request->all());
         $profile->avatar = $imgPath;
@@ -98,7 +102,7 @@ class CompanyProfileController extends Controller
 
         if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
             $image = $request->file('avatar');
-            $imgPath = $image->store('/images/' . Auth::id());
+            $imgPath = $image->store('images/' . Auth::id());
             $data = $request->except(['_method', '_token']);
             $data['avatar'] = $imgPath;
         } else {

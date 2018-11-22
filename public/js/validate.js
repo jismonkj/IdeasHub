@@ -1,3 +1,14 @@
+// datepicker
+$( function() {
+    $( "#dob" ).datepicker({
+        yearRange: "1990:2002",
+        changeYear: true,
+        changeMonth: true,
+        dateFormat: "yy-mm-dd",
+        defaultDate: new Date(1990, 10 - 1, 25)
+    });
+  } );
+
 //form submit
 $("#regForm").submit(function (e) {
     e.preventDefault();
@@ -19,7 +30,7 @@ $("#regForm").submit(function (e) {
 });
 
 //validation
-$(".validate").on("blur", function () {
+$("body").on("blur", ".validate", function () {
     $optional = false;
     $value = $(this).val();
     $type = $(this).attr("type");
@@ -27,12 +38,19 @@ $(".validate").on("blur", function () {
         $optional = true;
     }
 
+    //custom data type
     $class = "";
     if ($(this).attr('data-type')) {
         $class = $(this).data('type');
     }
 
-    if (!inputValidate($value, $type, $optional, $class)) {
+    //custom error message
+    $errmessage = "";
+    if ($(this).attr('data-errmessage')) {
+        $errmessage = $(this).data('errmessage');
+    }
+
+    if (!inputValidate($value, $type, $optional, $class, $errmessage)) {
         //input has invalid/empty data
         $(this).addClass("invalid-data");
     } else {
@@ -40,7 +58,7 @@ $(".validate").on("blur", function () {
     }
 });
 
-function inputValidate($value, $type, $optional, $class) {
+function inputValidate($value, $type, $optional, $class, $errmessage) {
     if ($value == "" && $optional) {
         return true;
     }
@@ -50,16 +68,24 @@ function inputValidate($value, $type, $optional, $class) {
     //regex set for validation
     var pattern;
     $telPattern = /^([0-9]{10})?$/;
+    $walletPriceRegEx = /(\d+\.\d{1,5})/;
     $textPattern = /[A-Za-z0-9]/;
     $namePattern = /[A-Za-z ]/i;
-    $pswdPattern = /[\@]{1}/;
-    $emailPattern = /\@{1}.{1}/;
+    $numberPatt = /[0-9]/;
+    $pswdPattern = /^(?=.*\d[A-Z]).{6,12}/;
+    $emailPattern = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
     // dd/mm/yyyy
     $datePattern = /^([0-2]{1}[0-9]{1}|[0-3]{1}[0-1]{1}|[0-9]{1})\/([0]{1}[0-9]{1}|[0-1]{1}[0-2]{1}|[0-9]{1})\/([1]{1}[9]{1}[4-9]{1}[0-9]{1}|[2]{1}[0]{1}[0-1]{1}[0-9]{1})/;
+
+    //alert for user
     switch ($type) {
         case "number":
-            pattern = $number;
+            pattern = $numberPatt;
             $message = "Only digits please";
+            if ($class == "wallet-price") {
+                pattern = $walletPriceRegEx;
+                $message = "Invalid Amount";
+            }
             break;
         case "tel":
             pattern = $telPattern;
@@ -67,14 +93,15 @@ function inputValidate($value, $type, $optional, $class) {
             break;
         case "text":
             pattern = $textPattern;
+            $message = "Contain only letters and digits"
             if ($class == "name") {
                 pattern = $namePattern;
-                $message = "Name should contain letters only."
+                $message = "Name should contain letters only.";
             }
             break;
         case "password":
             pattern = $pswdPattern;
-            $message = "min. 6 characters, atleast 1 special character & 1 capital letter/"
+            $message = "min. 6 characters, atleast 1 digit and 1 capital letter for password";
             break;
         case "date":
             $value = formatDate($value);
@@ -86,6 +113,13 @@ function inputValidate($value, $type, $optional, $class) {
             $message = "Email is invalid";
             break;
     }
+
+    //if custome message is set
+    if($errmessage!=""){
+        $message = $errmessage;
+    }
+
+    //validate data value with regex pattern
     if (!pattern.test($value)) {
         userAlert($message);
         return false;
@@ -102,7 +136,7 @@ function hasEmptyInvalidFields() {
             ($(selector).val() == "" && !$(selector).hasClass("optional")) ||
             $(selector).hasClass("invalid-data")
         ) {
-            $(selector).focus();
+            // $(selector).focus();
             // $(selector).addClass("invalid-data");
             $position = $(selector).offset().top;
             $("body, html").animate({

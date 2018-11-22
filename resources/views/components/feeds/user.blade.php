@@ -1,7 +1,7 @@
 <div class="container" id="userHome">
     <div class="row">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card section-header">
                 <div class="pt-2 text-center">
                     <h5>More Companies</h5>
                 </div>
@@ -11,7 +11,7 @@
             </company-list-item>
         </div>
         <div class="col-md-4">
-            <div class="card">
+            <div class="card section-header">
                 <div class="pt-2 text-center">
                     <h5>Your Ideas</h5>
                 </div>

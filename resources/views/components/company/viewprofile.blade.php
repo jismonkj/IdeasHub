@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="col-md-6">
-        <div class="card border-0">
-            <img src="{{ file_exists(asset('storage/'.$profile['avatar']))? asset('storage/public/'.$profile['avatar']) : asset('storage/images/cover.jpg')}} " alt="" class="img-responsive avatar mx-auto d-block">
+    <div class="col-md-8">
+        <div class="card border-0 text-center">
+        <img src="{{ asset('storage/'.$profile['avatar']) }} " alt="" class="img-responsive avatar mx-auto d-block">
         </div>
     </div>
-    <div class="col-md-6 text-center">
+    <div class="col-md-4 text-center">
         <div class="card border-0">
             <h3 class="mx-auto mt-5">
                 {{ $profile['uni_name'] }}

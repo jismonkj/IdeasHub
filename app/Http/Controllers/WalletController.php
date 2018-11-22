@@ -17,7 +17,7 @@ class WalletController extends Controller
          $debit = User::find(Auth::id())->wallet()->where('type', 'debit')->sum('amount');
          //total credit amount
          $credit = User::find(Auth::id())->wallet()->where('type', 'credit')->sum('amount');
- 
+         $credit += Wallet::where([['did', Auth::id()],['type', 'debit']])->sum('amount');
          //
          $balance = $credit - $debit;
 
@@ -27,7 +27,11 @@ class WalletController extends Controller
     public function showWallet()
     {
         $balance = $this->walletBalance();
-        $transactions = User::find(Auth::id())->wallet()->get();
+        $payments = User::find(Auth::id())->wallet()->where('type', 'debit')->get();
+        $reciepts = Wallet::where([['did', Auth::id()],['type', 'debit']])->get();
+        $reciepts_ = User::find(Auth::id())->wallet()->where('type', 'credit')->get();
+        
+        // $transactions = array_merge($transactions, $transactions_);
 
         $minBalance = true;
         $alertClass = 'alert-info';
@@ -36,7 +40,7 @@ class WalletController extends Controller
             $minBalance = false;
         }
         return view('wallet', ['balance'=>$balance
-        , 'alertClass'=> $alertClass, 'minBalance'=>$minBalance, 'transactions'=>$transactions]);
+        , 'alertClass'=> $alertClass, 'minBalance'=>$minBalance, 'payments'=>$payments, 'reciepts'=>$reciepts, 'reciepts_'=>$reciepts_]);
     }
 
     public function walletPay(Request $request)
@@ -58,6 +62,21 @@ class WalletController extends Controller
         $tempPay->save();
         $this->changeIdeaStatus('paid', $request->refer_id);
         return $this->walletBalance();
+    }
+
+    //collect money
+    public function walletCollect(Request $request)
+    {
+        // return $request->all();
+        $data = $request->all();
+        $data['uid'] = Auth::id();
+        $data['refer_id'] = '0';
+        $data['did'] = '0';
+        $data['type'] = 'credit';
+        $collect = Wallet::create($data);
+        $collect->save();
+        
+        return view('info', ['info' => '<b>Your wallet is credited with <i class="fas fa-rupee-sign"></i>'.$request->amount .'</b>', 'htmlclass' => 'alert-success', 'title'=> 'Payment Complete', 'ret_url'=>'wallet/view']);
     }
 
     public function changeIdeaStatus($status, $iid)

@@ -38,7 +38,7 @@
             <div class="card-body row">
             
                 @foreach($data['photos'] as $photo)
-                <div class="col-md-6">
+                <div class="col-md-6 bg-dark">
                     <a href="{{asset('storage/'.$photo['photo_path'])}}" target="_blank">
                         <img src="{{asset('storage/'.$photo['photo_path'])}}" alt="" class="img-responsive idea-photo">
                     </a>

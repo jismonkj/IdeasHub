@@ -7,6 +7,7 @@ use Ideashub\User;
 use Ideashub\UserProfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class UserProfileController extends Controller
 {
@@ -28,6 +29,9 @@ class UserProfileController extends Controller
         }
         $state = State::find($profile['state_id']);
         $profile['state'] = $state['state'];
+        if(!File::exists("storage/".$profile->avatar)){
+           $profile->avatar = "images/user.jpg";
+        }
         return view('profile')->with(['profile' => $profile, 'flag' => 'view']);
 
     }

@@ -62,16 +62,6 @@ export default {
          this.$parent.user_id = this.uid;
          this.$parent.iid = this.id;
          this.$parent.iindex = this.index;
-
-          //wallet balance
-        axios.get('wallet/get/balance')
-        .then(function (response) {
-             this.$parent.walletBalance = response.data;
-            // console.log(response.data);
-        }.bind(this))
-        .catch(function (error) {
-            // console.log(error);
-        });
       }
   }
 };
